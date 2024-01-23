@@ -1,0 +1,86 @@
+{% extends 'order/base.html' %}
+{% block content %}
+{% include 'order/hotel/navbar.html' %}
+
+
+
+
+
+<div class="container ">
+  <div class="row">
+<h1 class="text-center pt-5">  Order Management Services</h1>
+</div>
+
+  
+<div class="container text-center my-3">
+
+
+  <div class="text-center" ><a href="/hotel_login"   class="btn btn-success " >Hotel Login</a></div>
+
+<div class="row my-3">
+  <div class= "col-6  text-center" ><a href="/waiter_login"   class="btn btn-primary  " >Waiter Login</a></div>
+  <div class="col-6   text-center"><a href="/chef_login"   class="btn btn-danger  " >Chef Login</a></div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="container border my-5">
+    <div class="row text-center">
+    <div class="col"><h6> Satisfied Customer Orders Print - {{orders}}</h6></div>
+  </div>
+  </div>
+  
+  <div class="container my-3 border">
+   
+      <div class="row">
+        <h6 class="text-center">Demo Information</h6>
+        <div class=" col-4 border">
+        
+        <h6>Hotel Login </h6>
+        <h6>Mobile 1234567890</h6>
+        <h6>Pin 1234</h6>
+      </div>
+  
+      <div class="col-4 border">
+   
+        <h6>Waiter Login </h6>
+        <h6>Mobile 1234567890</h6>
+        <h6>Pin 1234</h6>
+      </div>
+  
+      <div class="col-4 border">
+        
+        <h6>Chef Login </h6>
+        <h6>Mobile 1112131415</h6>
+        <h6>Pin 1234</h6>
+      </div>
+    </div>
+  
+        
+        
+      </div>
+      
+     
+    </div>
+  
+    <div class="container my-5">
+      <h6>More Information</h6>
+      <h6>Sunil Kale</h6>
+      <h6>Mobile 9730991252 </h6>
+      <h6>Email Id - sunilkale101@gmail.com</h6>
+  
+  
+  
+  
+  
+{% endblock content %}

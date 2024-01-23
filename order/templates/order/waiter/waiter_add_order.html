@@ -1,0 +1,286 @@
+{% extends 'order/base.html' %}
+{% block title %}Add Order{% endblock title %}
+{% block content %}
+<div id="test"></div>
+<div class="container  border rounded">
+  <a href="/waiter_dashboard"   class="btn btn-success px-5 btn-sm" >Back</a>
+
+  <div class="container border border-dark " >
+    <div class="">
+  <div class="col-sm-2 border">
+    <h1 >{{t.table_number}} - Table </h1>
+    <h6>{{h.hotel_name}}- {{w.employee_name}}</h6>
+    <input type="hidden" id="table_number" value="{{t.table_number}}"></input>
+    <input type="hidden" id="table_id" value="{{t.id}}"></input>
+    <input type="hidden" id="hotel_id" value="{{h.id}}"></input>
+    <input type="hidden" id="employee_id" value="{{w.id}}"></input>
+  </div>
+
+<div class="col-sm-10 border "> 
+  
+
+<div id="cart">
+
+  <table class="table">
+
+    <tbody>{% for cart in cart %}
+      <tr>
+        <td>{{cart.dish.dish_marathi_name}}</td>
+        <td>{{cart.qty}}</td>
+        <td>{{cart.note}}</td>
+        <td>{% if cart.cook_status == 0 %}<h4 class="text-bg-danger text-center">Pending</h4>{% else %}<h4 class="text-bg-success">{{cart.status}}</h4>{% endif %}</td>
+        <td>{% if cart.cook_status == 0 %}<form action="" method="POST">{% csrf_token %}<input type="hidden" name="cart_id" value="{{cart.id}}"><button type="submit" class="btn btn-danger" name="Delete">X</button></form>{% else %}{% endif %}</td>
+      </tr>
+
+    </tbody>
+    {% endfor %}
+  </table>
+
+
+</div>
+
+
+</div> 
+</div>
+
+</div>
+
+
+  <br>
+  <div class="container">
+    {% for dc in dc %}
+    <a  class="btn btn-primary my-3 " onclick="filter_by_category('{{dc.id}}')">{{dc.category_name}}</a>
+    {% endfor %}
+  </div>
+<br>
+  <div class="mb-3">
+    <label for="dish" class="form-label">Search Dish </label>
+    <input type="text" placeholder="Search Dishes..." class="form-control" id="dish" oninput="dishgetvalue()" name="dish" required>
+  </div>
+  <div id="dish_result"></div>
+
+</div>
+
+
+
+
+<script>
+
+
+  //fiter category code
+  
+  function filter_by_category(id){
+    
+    var hotel_id = document.getElementById('hotel_id').value
+    $("#dish_result").empty()
+    $.ajax({
+      url: "{% url 'filter_by_category' %}",
+    method: "GET",
+    data:{
+      dish_category_id:id,
+      hotel_id:hotel_id,
+    },
+    success: function(data){
+      $("#dish_result").empty()
+      //${data.dish[key].dish_name}
+      for (var key=0; key<1000; key++){
+        /*var temp = `
+        <table class="table">
+      <tbody>
+        <tr>
+          <td>${data.dish[key].dish_marathi_name}</td>
+          <td>Rs- ${data.dish[key].price}</td>
+          <td><input id="note${data.dish[key].id}" type="text" size="1" placeholder="note"></input></td>
+          <td><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success">-</button></td>
+          <td><input type="readonly" id="qty${data.dish[key].id}" value="1" size=5 class="text-center" disabled></input> </i></td>
+          <td><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success">+</button></td>
+          <td><button type="button" class="btn btn-danger mx-5" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></td>
+        </tr>
+      </tbody>
+    </table>
+                  `*/
+  
+                  var temp =`
+                  
+                  <div class="col-sm-4 border my-5 mx-3">
+  <div class="row text-center my-1">
+    <div class="col-12"><h4>${data.dish[key].dish_marathi_name}</h4></div>
+    
+  </div>
+    <div class="row text-center">
+      <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
+      <div class="col-5 "><input id="note${data.dish[key].id}" type="text" size="2" placeholder="note"></input></div>
+    </div>
+  
+  <div class="row py-4 text-center">
+    <div class="col-3"><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success px-5">-</button></div>
+    <div class="col-1"><strong  id="qty${data.dish[key].id}"  >1</strong></div>
+    <div class="col-3"><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success px-5">+</button></div>
+    <div class="col-5"><button type="button" class="btn btn-danger mx-auto" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></div>
+  </div>
+    </div>
+  
+  
+                  `
+                  $("#dish_result").append(temp);
+      }
+    }
+    })
+  }
+  
+  
+  // dish search code
+  
+  
+  function dishgetvalue(){
+    var dish = document.getElementById('dish').value
+    var hotel_id = document.getElementById('hotel_id').value
+    $("#dish_result").empty()
+    $.ajax({
+      url: "{% url 'dish_filter' %}",
+    method: "GET",
+    data:{
+      filter:dish,
+      hotel_id:hotel_id,
+    },
+    success: function(data){
+      $("#dish_result").empty()
+      //${data.dish[key].dish_name}
+      for (var key=0; key<1000; key++){
+        var temp =`
+                  
+                  <div class="col-sm-4 border my-5 mx-3">
+  <div class="row text-center my-1">
+    <div class="col-12"><h4>${data.dish[key].dish_marathi_name}</h4></div>
+    
+  </div>
+    <div class="row text-center">
+      <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
+      <div class="col-5 "><input id="note${data.dish[key].id}" type="text" size="2" placeholder="note"></input></div>
+    </div>
+  
+  <div class="row py-4 text-center">
+    <div class="col-3"><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success px-5">-</button></div>
+    <div class="col-1"><strong  id="qty${data.dish[key].id}"  >1</strong></div>
+    <div class="col-3"><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success px-5">+</button></div>
+    <div class="col-5"><button type="button" class="btn btn-danger mx-auto" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></div>
+  </div>
+    </div>
+  
+  
+                  `
+                  $("#dish_result").append(temp);
+      }
+    }
+    })
+  }
+  
+  
+  
+  
+  
+  //plus code
+  
+  function plus(id){
+    var qty = document.getElementById('qty'+id).innerText
+    if(qty < 50){
+      qty++;
+    document.getElementById('qty'+id).innerText=qty;
+    }
+      }
+      
+    // minus btn code
+  
+      function minus(id){
+    var qty = document.getElementById('qty'+id).innerText
+    if(qty > 1){
+    qty--;
+    document.getElementById('qty'+id).innerText=qty;
+    }
+      }
+      
+    
+  // add to cart 
+  
+  function add_to_cart(id,price){
+    var qty = document.getElementById('qty'+id).innerText;
+    dish_id=id
+    price=price
+    var hotel_id = document.getElementById('hotel_id').value;
+    var table_id = document.getElementById('table_id').value;
+    var table_number = document.getElementById('table_number').value;
+    var employee_id = document.getElementById('employee_id').value;
+    var note = document.getElementById('note'+id).value;
+    total_price=price*qty
+    $("#cart").empty()
+    //alert(note)
+    $.ajax({
+      url: "{% url 'add_to_cart' %}",
+      method: "GET",
+      data:{
+          hotel_id:hotel_id,
+          employee_id:employee_id,
+          dish_id:dish_id,
+          qty:qty,
+          table_id:table_id,
+          price:price,
+          note:note,
+          total_price:total_price,
+          table_number:table_number
+      },
+      success: function (data){
+        $("#cart").empty()
+        for (var key=0; key<100; key++){
+  
+          var temp =`
+          <table class="table">
+  
+  <tbody>
+    <tr>
+      <td>${data.cart[key].dish_marathi_name}</td>
+      <td>${data.cart[key].qty}</td>
+      <td>${data.cart[key].note}</td>
+      <td><h4 class="text-bg-danger text-center">${data.cart[key].status}</h4></td>
+      <td><a onclick="remove_cart(${data.cart[key].id})" class="btn btn-danger">X</a>
+  </td>
+    </tr>
+  
+  </tbody>
+  
+  </table>
+  
+              `
+              $("#cart").append(temp);
+        }
+        
+      }
+  
+    })
+  }
+  
+  
+  function remove_cart(id){
+    $.ajax({
+      url: "{% url 'remove_cart_waiter' %}",
+      method:'GET',
+      data:{
+        id:id,
+      },
+      success: function (data){
+        if (data.status == 1)
+                  //alert("Delete successfully ")
+                  window.location.reload()
+       
+      }
+  
+    })
+  }
+  
+  
+  
+  
+  
+  </script>
+
+
+{% endblock content %}

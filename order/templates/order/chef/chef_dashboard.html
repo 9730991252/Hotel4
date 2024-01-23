@@ -1,0 +1,151 @@
+{% extends 'order/base.html' %}
+{% block title %}Chef Dashboard{% endblock title %}
+{% block content %}
+<div class="container">
+<body onload="Javascript:AutoRefresh(180000);">
+
+  <input type="hidden" id="hotel_id" value="{{e.hotel_id}}"></input>
+  <input type="hidden" id="chef_id" value="{{e.id}}"></input>
+  <h class="p-5">Welcome - {{e.employee_name}}</h>
+<div class="container p-5  border rounded">
+<a href="/"   class="btn btn-success px-5 btn-sm" >Home</a>
+</div>
+<div class="container">
+  {% if messages %}
+  
+  {% for message in messages %}
+  <div class="alert alert-success text-center mb-3">{{message}}</div>
+  {% endfor %}
+  {% endif %}
+
+</div>
+
+<div class="container border">
+  <h3>तुम्ही बनवत आहात  </h3>
+  <table class="table">
+
+      <tbody>
+          {% for p in p %}
+        <tr>
+          <td>{{p.table.table_number}} -Table</td>
+          <td>{{p.dish.dish_marathi_name}}</td>
+          <td>{{p.qty}}</td>
+          <td>{{p.note}}</td>
+          <td><form action="" method="POST">{% csrf_token %}<input type="hidden" name="chef_id" value="{{e.id}}"><input type="hidden" name="id" value="{{p.id}}"><button class="btn btn-success" type="submit" name="Delivered">पाठवा</button></form></td>
+        </tr>
+          {% endfor %}
+
+      </tbody>
+    </table>
+</div>
+
+
+
+<div class="container border">
+  <h3>बनवणे बाकी आहेत  </h3>
+  <table class="table">
+
+      <tbody>
+          {% for d in d %}
+        <tr>
+          <td><div><strong id="color{{d.id}}"></strong></div></td>
+          <td>{{d.table.table_number}} -Table</td>
+          <td>{{d.dish.dish_marathi_name}}</td>
+          <td>{{d.qty}}</td>
+          <td>{{d.note}}</td>
+          <td><form action="" method="POST">{% csrf_token %}<input type="hidden" name="chef_id" value="{{e.id}}"><input type="hidden" name="id" value="{{d.id}}"><button class="btn btn-danger" type="submit" name="Accepted">स्विकारा</button></form></td>
+        </tr>
+          {% endfor %}
+
+      </tbody>
+    </table>
+</div>
+
+
+<div class="container border">
+<h3>बनवून झाले आहेत  </h3>
+<table class="table">
+
+    <tbody>
+        {% for d in Delivered_dish %}
+      <tr>
+        <td>{{d.table.table_number}} -Table</td>
+        <td>{{d.dish.dish_marathi_name}}</td>
+        <td>{{d.qty}}</td>
+        <td>{{d.note}}</td>
+        <td>{{d.status}}</td>
+      </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+
+</div>
+
+<script>
+
+
+  function AutoRefresh(t){
+          setTimeout("location.reload(true);", t);
+        }
+  
+  
+  multiple_order()
+    
+    function multiple_order(){
+      var hotel_id = document.getElementById('hotel_id').value;
+  
+      $.ajax({
+        url: "{% url 'multiple_order' %}",
+        method:'GET',
+        data:{
+          hotel_id:hotel_id,
+        },
+        success: function (data){
+          
+          for (var key=0; key<10000; key++){
+            console.log(data.cart[key].id)
+            i=(data.cart[key].id)
+            
+            text=`<button type="button" class="btn btn-primary" onclick=multiple_select(${data.cart[key].hotel_id},${data.cart[key].dish_id})>एकत्रित घ्या </button>`
+                document.getElementById('color'+i).innerHTML=text;
+       
+          }
+      
+        }
+    
+      })
+    }
+    
+    
+    
+    
+  function multiple_select(hotel_id,dish_id){
+    var chef_id = document.getElementById('chef_id').value;
+    $.ajax({
+      url: "{% url 'multiple_select' %}",
+        method:'GET',
+        data:{
+          hotel_id:hotel_id,
+          dish_id:dish_id,
+          chef_id,chef_id,
+        },
+        success: function (data){
+          if (data.status == 1){
+              window.location.reload()
+          }
+        }
+  
+    })
+  }
+  
+  
+  </script>
+
+
+
+
+{% endblock content %}
+<!doctype html>

@@ -1,0 +1,47 @@
+{% extends 'order/base.html' %}
+{% block title %}Hotel login{% endblock title %}
+{% block content %}
+{% include 'order/hotel/navbar.html' %}
+
+
+<h1 class="text-center pt-5">  Order Management Services</h1>
+    <div class="container  border rounded">
+      {% if messages %}
+      
+      {% for message in messages %}
+      <div class="alert alert-danger text-center mb-3">{{message}}</div>
+      {% endfor %}
+      {% endif %}
+      <div class="">
+  <div class="container my-5 jumbotron text-center">
+      <h6>Hotel Login</h6>
+      <form action="/hotel_login" method="POST">{% csrf_token %}
+        <div class="">
+    
+            <input type="number" name="mb" placeholder="Enter Your Mobile" required/><br><br>
+            <input type="password" name="pin" placeholder="Enter Your secret pin " required/><br><br>
+            <button type="submit" class="btn btn-primary" id= "btnadd"> Login </button>
+        </div>
+      </form>
+    </div>
+  
+  
+  
+  
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

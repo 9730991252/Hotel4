@@ -1,0 +1,70 @@
+{% extends 'order/base.html' %}
+{% block title %}Add Table {% endblock title %}
+{% block content %}
+{% include 'order/hotel/navbar.html' %}
+
+<div class="container mt-5 p-5 border rounded">
+	<h6>welcome {{h.hotel_name}} </h6>
+	{% if messages %}
+	
+	{% for message in messages %}
+	<div class="alert alert-success text-center mb-3">{{message}}</div>
+	{% endfor %}
+	{% endif %}
+		<div class="row">
+			<div class="col-6"><form action="" method="POST">{% csrf_token %}<input type="hidden" name="hotel_id" value="{{h.id}}"><button type="submit" class="btn btn-primary" name="Add">Add New Table </button></form></div>
+		
+	
+		<div class="col-6"><a href="/hotel_dashboard"   class="btn btn-success " >Hotel Dashbord</a></div>
+	</div>
+
+
+<table class="table">
+<thead>
+  <tr>
+	<th scope="col">Number</th>
+	<th scope="col">Table Namber</th>
+	<th scope="col">Status</th>
+	<th scope="col">Delete</th>
+	
+  </tr>
+</thead>
+<tbody>{% for t in t %}
+  <tr>
+	<th scope="row">{{forloop.counter}}</th>
+	<td>Table Number {{t.table_number}}</td>
+	<td><form class="" method="POST">{% csrf_token %}{% if t.status == 1 %}<button class="btn btn-success" type="submit" name="Active">Active<input type="hidden" name="id" value="{{t.id}}"></button>{% else %}<button class="btn btn-danger" type="submit" name="Deactive">Deactive<input type="hidden" name="id" value="{{t.id}}"></button>{% endif %}</form></td>
+	<td><a href="" class="text-bg-danger p-2" data-bs-toggle="modal" data-bs-target="#Delete_Table_Modal_{{t.id}}" >X</a></td>
+  </tr>
+
+
+  
+<!-- Delete Category Modal -->
+<form action="" method="POST">
+{% csrf_token %}
+<div class="modal fade" id="Delete_Table_Modal_{{t.id}}" tabindex="-1" aria-labelledby="Delete_Table_Modal_{{t.id}}" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-body">
+		<input type="hidden" name="id" value="{{t.id}}">
+		  <p> Are you sure ? You want to Delete</p>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary" name="Delete">Delete</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+</form>
+
+
+  {% endfor %}
+</tbody>
+
+</table>
+
+
+
+</div>
+{% endblock content %}

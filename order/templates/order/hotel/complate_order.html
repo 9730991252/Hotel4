@@ -1,0 +1,44 @@
+{% extends 'order/base.html' %}
+{% block title %}complate order{% endblock title %}
+{% block content %}
+
+<diV class="container mt-5 p-5 border rounded">
+  <a href="/running_table"   class="btn btn-success px-5 btn-sm" >Running Table</a>
+
+</diV>
+
+<div class="container border">
+  <h3>Your Complate Order </h3>
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Bill Number</th>
+          <th scope="col">Table Number</th>
+          <th scope="col">Date</th>
+          <th scope="col">Total Amount</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for m in m %}
+        <tr>
+          <td>{{m.order_filter}}</td>
+          <td>{{m.table.table_number}}</td>
+          <td>{{m.ordered_date}}</td>
+          <td>{{m.total_price}}</td>
+          <td><a href="/complate_view_order/{{m.order_filter}}"  class="btn btn-primary">View</a></td>
+        </tr>
+           {% endfor %}
+
+      </tbody>
+    </table>
+
+    
+</div>
+
+
+
+
+
+{% endblock content %}
+

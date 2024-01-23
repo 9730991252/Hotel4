@@ -1,0 +1,85 @@
+{% extends 'order/base.html' %}
+{% block title %}Hotel Dashboard{% endblock title %}
+{% block content %}
+
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+
+  <!-- Example Code -->
+  
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Hotel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+     
+          
+          <li class="nav-item">
+              <a class="nav-link" href="/employee">Employee</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="/table">Table</a>
+            </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dishes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/dish">Add Dishes</a></li>
+              <li><a class="dropdown-item" href="/dish_category">Dish Category</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">LogOut</a>
+          </li>
+        </ul>
+    
+      </div>
+    </div>
+  </nav>
+  <h6>welcome {{h.hotel_name}} </h6>
+  <div class="container py-5">
+    <div class="row">
+  <div class="col-6 text-center"><a href="/running_table"   class="btn btn-success" >चालू टेबल / नवीन टेबल </a></div>
+  <div class="col-6 text-center"><a href="/complate_order"   class="btn btn-danger" >पूर्ण झालेले बिल </a></div>
+</div>
+</div>
+  <!-- End Example Code -->
+<div class="contener border">
+  <h4 class="contener border text-center">Summary </h4 >
+  <table class="table">
+    <div class="row">
+    <thead>
+      <tr>
+        <div class="col-1"><th >Employee</th></div>
+        <div class="col-1"> <th >Dishes</th></div>
+        <div class="col-1"><th >Tables</th></div>
+        <div class="col-1"><th >Orders</th></div>
+      </tr>
+    </thead>
+  </div>
+  <div class="row">
+    <tbody>
+      <tr>
+        <div class="col-1"><td>{{e}}</td></div>
+        <div class="col-1"><td>{{d}}</td></div>
+        <div class="col-1"><td>{{t}}</td></div>
+        <div class="col-1"><td>{{o}}</td></div>
+      </tr>
+    </tbody>
+  </div>
+  </table>
+  <h6>Total Amount Rs. {{total}}</h6>
+</div>
+
+
+
+
+{% endblock content %}
+
+
