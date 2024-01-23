@@ -1,0 +1,36 @@
+https://github.com/geekyshow1/GeekyShowsNotes/blob/main/nginx/Deploy_Django_Nginx.md
+
+
+
+........................................
+Build Wheel not success pkg config not found while pip mysqlclient
+https://www.youtube.com/watch?v=HyZU2fhpkmM&t=138s
+
+
+---------------------------------------------------
+13.233.27.125
+
+ssh -i "hotel.pem" ubuntu@ec2-13-233-27-125.ap-south-1.compute.amazonaws.com
+
+sunil
+Prasanna@7878
+
+---------------------
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "hotel",
+        "USER": "sunil",
+        "PASSWORD": "sunil1234",
+        "HOST": "hotel.cbg246a66oo6.ap-south-1.rds.amazonaws.com",
+        "PORT": "3306",
+    }
+}
+
+
+
+------------------------
+mysql root Prasanna@7878
+
+---------------------------
