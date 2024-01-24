@@ -893,7 +893,8 @@ def multiple_order(request):
 
         return JsonResponse({'status': 1,'cart':cart})                    
 
-
+def test (request):
+    return render(request,'order/test.html')
 
 
 

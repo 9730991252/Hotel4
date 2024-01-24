@@ -35,6 +35,6 @@ urlpatterns = [
     path('multiple_select',views.multiple_select,name='multiple_select'),
     path('multiple_order',views.multiple_order,name='multiple_order'),
         
-    #path('test',views.test,name='test'),
+    path('test',views.test,name='test'),
    
 ]
