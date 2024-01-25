@@ -23,10 +23,10 @@ Requires=tejorder.com.gunicorn.socket
 After=network.target
 
 [Service]
-User=sunil
-Group=sunil
-WorkingDirectory=/home/sunil/Hotel4
-ExecStart=/home/sunil/Hotel4/venv/bin/gunicorn \
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/Hotel4
+ExecStart=/home/ubuntu/Hotel4/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind unix:/run/tejorder.com.gunicorn.sock \
@@ -57,3 +57,8 @@ server{
 
     
 }
+
+
+
+
+

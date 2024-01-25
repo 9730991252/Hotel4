@@ -8,9 +8,9 @@ https://www.youtube.com/watch?v=HyZU2fhpkmM&t=138s
 
 
 ---------------------------------------------------
-13.233.27.125
+13.201.115.141
 
-ssh -i "hotel.pem" ubuntu@ec2-13-233-27-125.ap-south-1.compute.amazonaws.com
+
 
 sunil
 Prasanna@7878
