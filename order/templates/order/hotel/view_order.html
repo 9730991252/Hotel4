@@ -1,7 +1,7 @@
 {% extends 'order/base.html' %}
 {% block title %}View Order{% endblock title %}
 {% block content %}
-
+<div class="fixed-top text-end my-3"  ><strong id="all_qty"  class="badge bg-danger">{{ng}}</strong>- एकुण नग </div>
 <h class="p-5">Welcome - {{h.hotel_name}}</h>
 <input type="hidden" id="hotel_id" value="{{hotel.id}}"></input>
 <input type="hidden" id="table_id" value="{{table.id}}"></input>
@@ -233,7 +233,9 @@ Total Amount Rs.<input type="readonly" id="tmc" value="{{amount}}" size=5 class=
         total=(data.total_amount)
         
         am=document.getElementById('tmc').value=total
+        ng=(data.ng)
         
+        document.getElementById('all_qty').innerHTML=ng
         $("#cart").empty()
         for (var key=0; key<100; key++){
           

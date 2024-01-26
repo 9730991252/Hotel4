@@ -515,6 +515,7 @@ def view_order(request,id):
     if request.session.has_key('hotel_mobile'):
         hm = request.session['hotel_mobile']
         hotel=Hotel.objects.get(mobile=hm)
+        ng=len(Cart.objects.filter(hotel_id=hotel.id,table_id=id))
         dish_category=Dish_category.objects.filter(hotel_id=hotel.id,status=1)
         cart=Cart.objects.filter(hotel_id=hotel.id,table_id=id).order_by('dish_id')
         table=Table.objects.get(id=id)
@@ -530,7 +531,7 @@ def view_order(request,id):
                 amount+=tempamount
                 #print(amount)
 
-        return render(request,'order/hotel/view_order.html',{'cart':cart,'table':table,'hotel':hotel,'dish_category':dish_category,'amount':amount})
+        return render(request,'order/hotel/view_order.html',{'cart':cart,'table':table,'hotel':hotel,'dish_category':dish_category,'amount':amount,'ng':ng})
     else:
         return redirect('hotel_login')
     
@@ -587,6 +588,8 @@ def add_to_cart(request):
             ).save()
         cart=Cart.objects.values().filter(hotel_id=hotel_id,table_id=table_id).order_by('dish_id')
         cart=list(cart)
+        ng=len(cart)
+        print(ng)
         c=Cart.objects.filter(hotel_id=hotel_id,table_id=table_id)
         total_amount=0
         if c:
@@ -594,7 +597,7 @@ def add_to_cart(request):
                 tempamount=(c.qty*c.price)
                 total_amount+=tempamount
                 #print(total_amount)
-        return JsonResponse({'status': 1,'cart':cart,'total_amount':total_amount})
+        return JsonResponse({'status': 1,'cart':cart,'total_amount':total_amount,'ng':ng})
     else:
         return JsonResponse({'status': 0})
 
@@ -778,12 +781,14 @@ def waiter_add_order(request,id):
         dish_category=Dish_category.objects.filter(hotel_id=w.hotel_id,status=1)
         t=Table.objects.get(id=id)        
         cart=Cart.objects.filter(hotel_id=w.hotel_id,table_id=id).order_by('dish_id')
+        ng=len(Cart.objects.filter(hotel_id=w.hotel_id,table_id=id))
         context={
             'w':w,    
             't':t,
             'dc':dish_category,
             'h':h,
-            'cart':cart
+            'cart':cart,
+            'ng':ng
         }
         if "Delete" in request.POST:
             cart_id=request.POST.get('cart_id')

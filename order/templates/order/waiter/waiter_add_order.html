@@ -1,9 +1,9 @@
 {% extends 'order/base.html' %}
 {% block title %}Add Order{% endblock title %}
 {% block content %}
-<div id="test"></div>
+<div class="fixed-top text-end my-3"  >एकुण नग <strong id="all_qty"  class="badge bg-danger">{{ng}}</strong></div>
 <div class="container  border rounded">
-  <a href="/waiter_dashboard"   class="btn btn-success px-5  my-3" >Back</a>
+  <a href="/waiter_dashboard"   class="btn btn-success text-center px-5  my-3 " >Back</a>
 
   <div class="container border border-dark " >
     <div class="">
@@ -206,6 +206,8 @@
     var qty = document.getElementById('qty'+id).innerText;
     dish_id=id
     price=price
+   
+    
     var hotel_id = document.getElementById('hotel_id').value;
     var table_id = document.getElementById('table_id').value;
     var table_number = document.getElementById('table_number').value;
@@ -229,6 +231,9 @@
           table_number:table_number
       },
       success: function (data){
+        ng=(data.ng)
+        
+        document.getElementById('all_qty').innerHTML=ng
         $("#cart").empty()
         for (var key=0; key<100; key++){
   
