@@ -1,17 +1,17 @@
 {% extends 'order/base.html' %}
 {% block title %}View Order{% endblock title %}
 {% block content %}
-<div class="fixed-top text-end my-3"  ><strong id="all_qty"  class="badge bg-danger">{{ng}}</strong>- एकुण नग </div>
-<h class="p-5">Welcome - {{h.hotel_name}}</h>
+<div class="fixed-top text-end my-3 bg-white"  ><strong id="all_qty"  class="badge bg-danger">{{ng}}</strong>- एकुण नग </div>
+<div class="my-5"><h>Welcome - {{hotel.hotel_name}}</h></div>
 <input type="hidden" id="hotel_id" value="{{hotel.id}}"></input>
 <input type="hidden" id="table_id" value="{{table.id}}"></input>
 <input type="hidden" id="table_number" value="{{table.table_number}}"></input>
 <input type="hidden" id="employee_id" value=""></input>
-<div class="container p-5  border rounded">
-<a href="/running_table"   class="btn btn-success px-5 btn-sm" >All Running Table</a>
+<div class="container p-2  my-2 border rounded">
+<a href="/running_table"   class="btn btn-success px-5 btn-lg " >All Running Table</a>
 </div>
-<div class="container border">
-<h4 class="text-center">{{h.hotel_name}}</h4>
+<div class="container border my-2">
+<h4 class="text-center">{{hotel.hotel_name}}</h4>
 <div>
 <div>
 <h5>Table-{{table.table_number}}</h5>
@@ -23,7 +23,6 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Item Name</th>
       <th scope="col">Qty</th>
       <th scope="col">Status</th>
@@ -35,7 +34,7 @@
     {% for t in cart %}
     
     <tr id="cart">
-      <td></td>
+     
       <td>{{t.dish.dish_marathi_name}}</td>
       <td>{{t.qty}}</td>
       <td>{{t.status}}</td>
