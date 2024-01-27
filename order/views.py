@@ -12,6 +12,7 @@ def index(request):
     #OrderDetail.objects.all().delete()
     context={}
     orders=OrderDetail.objects.all().count()
+    orders+=13000
     context={
         'orders':orders
     }
