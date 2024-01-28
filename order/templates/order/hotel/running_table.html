@@ -14,7 +14,7 @@
   
 
 </div>
-    <div  class="container border">
+    <div  class="container border my-2">
         <h1 class="text-center bg"> चालू टेबल  </h1>
       </div>
         <div class="container border">
@@ -29,8 +29,8 @@
             <tbody>
               {% for t in all_table %}
               <tr>
-                <td><h3>{{t.table_number}}</h3></td>
-                <td><a href="/view_order/{{t.id}}"  class="btn btn-success">View</a></td>
+                <td><h1 class="my-3 text-center">{{t.table_number}}</h1></td>
+                <td><a href="/view_order/{{t.id}}"  class="btn btn-success btn-lg my-3">View</a></td>
               </tr>
               {% endfor %}
             </tbody>

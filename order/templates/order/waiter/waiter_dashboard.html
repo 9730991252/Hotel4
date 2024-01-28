@@ -5,10 +5,41 @@
 
     <!-- Example Code -->
     <input type="hidden" id="hotel_id" value="{{h.id}}"></input>
+    <h3>welcome  {{w.employee_name}}</h3>
+
+    <div  class="container border my-2">
+      <h1 class="text-center bg"> चालू टेबल  </h1>
+    </div>
+      <div class="container border">
+        
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Table Number</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for t in running_table %}
+            <tr>
+              <td><h1 class="my-3 text-center">{{t.table_number}}</h1></td>
+              <td><a href="/view_order/{{t.id}}"  class="btn btn-success btn-lg my-3">View</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      
+      
+
+
+      <div  class="container border">
+        <h1 class="text-center bg"> नवीन टेबल सुरु साठी   </h1>
+      </div>
 
 
 <div class="container border">
-  <h3>welcome  {{w.employee_name}}</h3>
+
   <div class="row text-center">
   {% for t in t %}
     <div class="card mx-auto m-4 " style="width: 18rem;">

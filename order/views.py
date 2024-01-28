@@ -396,7 +396,7 @@ def dish(request):
         hotel_mobile = request.session['hotel_mobile']
         h=Hotel.objects.get(mobile=hotel_mobile)
         dc=Dish_category.objects.filter(hotel_id=h.id,status=1)
-        d=Dish.objects.filter(hotel_id=h.id).order_by('dish_category_id')
+        d=Dish.objects.filter(hotel_id=h.id).order_by('-dish_category_id')
         context={
             'c':dc,
             'h':h,
@@ -763,11 +763,37 @@ def waiter_dashboard (request):
         if wh:
             w=Employee.objects.get(employee_mobile=wm) 
             h=Hotel.objects.get(id=w.hotel_id)
-            t=Table.objects.filter(hotel_id=w.hotel_id,status=1)        
+            t=Table.objects.filter(hotel_id=w.hotel_id,status=1) 
+            #pravin Code
+
+
+            table=Table.objects.filter(hotel_id=h.id,status=1)        
+            cart = Cart.objects.filter(hotel_id=h.id).order_by('table_id')
+            send_table = []
+            processed_combinations = set()
+            for c in cart:
+                tbn = c.table_number
+                th_id = c.hotel_id
+                combination = (th_id, tbn)
+
+                if combination not in processed_combinations:
+                    one_table = Table.objects.filter(hotel_id=th_id, table_number=tbn).first()
+                    if one_table:
+                        send_table.append(one_table)
+                        processed_combinations.add(combination)
+                        #print(one_table)
+
+
+
+
+
+
+
             context={
                 'w':w,    
                 't':t,
                 'h':h,
+                'running_table':send_table
             }
         return render(request,'order/waiter/waiter_dashboard.html',context=context)
     else:
