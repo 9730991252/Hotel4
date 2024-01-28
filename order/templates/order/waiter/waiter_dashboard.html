@@ -15,7 +15,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">Table Number</th>
+              <th scope="col">टेबल नंबर </th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -23,7 +23,7 @@
             {% for t in running_table %}
             <tr>
               <td><h1 class="my-3 text-center">{{t.table_number}}</h1></td>
-              <td><a href="/view_order/{{t.id}}"  class="btn btn-success btn-lg my-3">View</a></td>
+              <td><a href="/waiter_add_order/{{t.id}}/"  class="btn btn-success btn-lg my-3">वाढवा</a></td>
             </tr>
             {% endfor %}
           </tbody>
