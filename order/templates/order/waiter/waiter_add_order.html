@@ -66,7 +66,7 @@
 
 
 <script>
-
+ 
 
   //fiter category code
   
@@ -85,28 +85,15 @@
       $("#dish_result").empty()
       //${data.dish[key].dish_name}
       for (var key=0; key<1000; key++){
-        /*var temp = `
-        <table class="table">
-      <tbody>
-        <tr>
-          <td>${data.dish[key].dish_marathi_name}</td>
-          <td>Rs- ${data.dish[key].price}</td>
-          <td><input id="note${data.dish[key].id}" type="text" size="1" placeholder="note"></input></td>
-          <td><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success">-</button></td>
-          <td><input type="readonly" id="qty${data.dish[key].id}" value="1" size=5 class="text-center" disabled></input> </i></td>
-          <td><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success">+</button></td>
-          <td><button type="button" class="btn btn-danger mx-5" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></td>
-        </tr>
-      </tbody>
-    </table>
-                  `*/
+       
   
                   var temp =`
                   
                   <div class="col-sm-4 border my-5 mx-3">
   <div class="row text-center my-3">
-    <div class="col-12"><h4>${data.dish[key].dish_marathi_name}</h4></div>
     
+    <div class="col-12"><h4 >${data.dish[key].dish_marathi_name}</h4></div>
+    <input  type="hidden" id="myText${data.dish[key].id}" value="${data.dish[key].dish_name}"></input>
   </div>
     <div class="row text-center">
       <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
@@ -124,6 +111,7 @@
   
                   `
                   $("#dish_result").append(temp);
+                 
       }
     }
     })
@@ -153,7 +141,7 @@
                   <div class="col-sm-4 border my-5 mx-3">
                     <div class="row text-center my-3">
     <div class="col-12"><h4>${data.dish[key].dish_marathi_name}</h4></div>
-    
+    <input  type="hidden" id="myText${data.dish[key].id}" value="${data.dish[key].dish_name}"></input>
   </div>
     <div class="row text-center">
       <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
@@ -207,8 +195,15 @@
     var qty = document.getElementById('qty'+id).innerText;
     dish_id=id
     price=price
-   
     
+    const textInput = document.querySelector('#myText'+id);
+    //textInput= (textInput+price);
+    const msg = new SpeechSynthesisUtterance;
+    msg.text=textInput.value;
+    msg.text=textInput.value;
+    msg.voice=speechSynthesis.getVoices()[3];
+    speechSynthesis.speak(msg);
+
     var hotel_id = document.getElementById('hotel_id').value;
     var table_id = document.getElementById('table_id').value;
     var table_number = document.getElementById('table_number').value;
@@ -257,6 +252,7 @@
   
               `
               $("#cart").append(temp);
+          
         }
         
       }
@@ -282,10 +278,10 @@
     })
   }
   
-  
-  
-  
-  
+
+
+
+
   </script>
 
 

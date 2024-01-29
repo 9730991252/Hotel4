@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
 <body onload="Javascript:AutoRefresh(180000);">
-
+  <input  type="hidden" id="count" value="  बाकी आहेत  {{tcount}} dish"></input>
   <input type="hidden" id="hotel_id" value="{{e.hotel_id}}"></input>
   <input type="hidden" id="chef_id" value="{{e.id}}"></input>
   <h class="p-5">Welcome - {{e.employee_name}}</h>
@@ -42,7 +42,7 @@
 
 
 <div class="container border">
-  <h3>बनवणे बाकी आहेत  </h3>
+  <h3>बनवणे बाकी आहेत - {{tcount}} डिश </h3>
   <table class="table">
 
       <tbody>
@@ -106,7 +106,7 @@
         success: function (data){
           
           for (var key=0; key<10000; key++){
-            console.log(data.cart[key].id)
+            //console.log(data.cart[key].id)
             i=(data.cart[key].id)
             
             text=`<button type="button" class="btn btn-primary" onclick=multiple_select(${data.cart[key].hotel_id},${data.cart[key].dish_id})>एकत्रित स्विकारा</button>`
@@ -141,6 +141,17 @@
     })
   }
   
+  pending_dish_speech()
+
+function pending_dish_speech(){
+  const textInput = document.querySelector('#count');
+    const msg = new SpeechSynthesisUtterance;
+    msg.text=textInput.value;
+    msg.voice=speechSynthesis.getVoices()[33];
+    speechSynthesis.speak(msg);
+}
+
+
   
   </script>
 

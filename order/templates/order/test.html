@@ -1,56 +1,20 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
-  </head>
-  <body>
-    <div class="contener">
+{% extends 'order/base.html' %}
+{% block title %}Add Order{% endblock title %}
+{% block content %}
 
-    <div class="col-sm-4 border my-5 mx-3">
-        <div class="row text-center my-1">
-          <div class="col-12"><h4>Pannir Masala </h4></div>
-          
-        </div>
-          <div class="row text-center">
-            <div class="col-5"><h5>Rs- 110</h5></div>
-            <div class="col-5 "><input id="note${data.dish[key].id}" type="text" size="2" placeholder="note"></input></div>
-          </div>
-        
-        <div class="row my-4 text-center">
-          <div class="col-2 mx-2"><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success px-3">-</button></div>
-          <div class="col-1"><strong  id="qty${data.dish[key].id}"  >1</strong></div>
-          <div class="col-2"><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success px-3" >+</button></div>
-          <div class="col-6"><button type="button" class="btn btn-danger mx-auto" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></div>
-        </div>
-          </div>
-
-    <div class="col-sm-4 border my-5 mx-3">
-        <div class="row text-center my-1">
-          <div class="col-12"><h4>Pannir Masala </h4></div>
-          
-        </div>
-          <div class="row text-center">
-            <div class="col-5"><h5>Rs- 110</h5></div>
-            <div class="col-5 "><input id="note${data.dish[key].id}" type="text" size="2" placeholder="note"></input></div>
-          </div>
-        
-        <div class="row my-4 text-center">
-          <div class="col-2 mx-2"><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success px-3">-</button></div>
-          <div class="col-1"><strong  id="qty${data.dish[key].id}"  >1</strong></div>
-          <div class="col-2"><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success px-3">+</button></div>
-          <div class="col-6"><button type="button" class="btn btn-danger mx-auto" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></div>
-        </div>
-          </div>
+<input id="myText" value="{{name.dish_name}}"></input>
+<button id="btn" onclick="text_to_speech()">speech</button>
 
 
+<script>
+  const textInput = document.querySelector('#myText');
+  
+  function text_to_speech(){
+    const msg = new SpeechSynthesisUtterance;
+    msg.text=textInput.value;
+    msg.voice=speechSynthesis.getVoices()[0];
+    speechSynthesis.speak(msg);
+  }
+</script>
 
-        </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-   
-  </body>
-</html>
+{% endblock content %}

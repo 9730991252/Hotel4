@@ -862,6 +862,7 @@ def chef_dashboard(request):
         e=Employee.objects.filter(employee_mobile=cf).first()
         if e:
             d=Cart.objects.filter(hotel_id=e.hotel_id,cook_status=0).order_by('dish_id')
+            tcount=Cart.objects.filter(hotel_id=e.hotel_id,cook_status=0).count()
             Accepted_dish=Cart.objects.filter(hotel_id=e.hotel_id,cook_status=1,chef_id=e.id,status='Accepted').order_by('dish_id')
             Delivered_dish=Cart.objects.filter(hotel_id=e.hotel_id,chef_id=e.id,status='Delivered')
             #print(e.id)
@@ -869,7 +870,8 @@ def chef_dashboard(request):
                 'e':e,
                 'd':d,
                 'p':Accepted_dish,
-                'Delivered_dish':Delivered_dish
+                'Delivered_dish':Delivered_dish,
+                'tcount':tcount
             }   
             if "Accepted" in request.POST:
                 id=request.POST.get('id')
@@ -942,7 +944,8 @@ def multiple_order(request):
         return JsonResponse({'status': 1,'cart':cart})                    
 
 def test (request):
-    return render(request,'order/test.html')
+    name=Dish.objects.get(id=2)
+    return render(request,'order/test.html',{'name':name})
 
 
 

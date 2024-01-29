@@ -108,7 +108,7 @@ Total Amount Rs.<input type="readonly" id="tmc" value="{{amount}}" size=5 class=
                   <div class="col-sm-4 border my-5 mx-3">
   <div class="row text-center my-3">
     <div class="col-12"><h4>${data.dish[key].dish_marathi_name}</h4></div>
-    
+    <input  type="hidden" id="myText${data.dish[key].id}" value="${data.dish[key].dish_name}"></input>
   </div>
     <div class="row text-center">
       <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
@@ -156,7 +156,7 @@ Total Amount Rs.<input type="readonly" id="tmc" value="{{amount}}" size=5 class=
                   <div class="col-sm-4 border my-5 mx-3">
   <div class="row text-center my-3">
     <div class="col-12"><h4>${data.dish[key].dish_marathi_name}</h4></div>
-    
+    <input  type="hidden" id="myText${data.dish[key].id}" value="${data.dish[key].dish_name}"></input>
   </div>
     <div class="row text-center">
       <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
@@ -209,6 +209,16 @@ Total Amount Rs.<input type="readonly" id="tmc" value="{{amount}}" size=5 class=
     var qty = document.getElementById('qty'+id).innerText;
     dish_id=id
     price=price
+
+
+    const textInput = document.querySelector('#myText'+id);
+    const msg = new SpeechSynthesisUtterance;
+    msg.text=textInput.value;
+    msg.voice=speechSynthesis.getVoices()[3];
+    speechSynthesis.speak(msg);
+
+
+
     var hotel_id = document.getElementById('hotel_id').value;
     var table_id = document.getElementById('table_id').value;
     var table_number = document.getElementById('table_number').value;
