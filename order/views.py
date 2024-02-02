@@ -749,11 +749,7 @@ def daily_report(request):
         result={}
         total=0
         qty=0
-        result=OrderDetail.objects.filter(hotel_id=hotel_id)
-        if result:
-            for r in result:
-                total +=r.total_price
-                qty +=r.qty        
+      
         if "Search" in request.POST:
             fromdate=request.POST.get('fromdate')
             todate=request.POST.get('todate')
