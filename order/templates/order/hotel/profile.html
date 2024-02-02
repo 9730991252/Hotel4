@@ -1,0 +1,118 @@
+{% extends 'order/base.html' %}
+{% block title %}Profile{% endblock title %}
+{% block content %}
+<div class="container border rounded">
+
+    <div class=""><h>Welcome - {{h.hotel_name}}</h></div>
+<div  class="container   text-center my-3">
+  <a  href="/hotel_dashboard"   class="btn btn-success px-5 btn-sm" >Back</a>
+</div>
+</div>
+
+<div class="container">
+    {% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-success text-center mb-3">{{message}}</div>
+{% endfor %}
+{% endif %}
+</div>
+<div class="container border rounded">
+
+    <div class="row border">
+        <h6 class="text-center ">Your Information </h6>
+    </div>
+<div class="row">
+    <div class="col-6"><p >Hotel Name </p></div>
+    <div class="col-6">{{h.hotel_name}}</div>
+</div>
+
+<div class="row">
+    <div class="col-6"><p> Addres </p></div>
+    <div class="col-6">{{h.hotel_address}}</div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-6"><p >Owner Name </p></div>
+    <div class="col-6">{{h.owner_name}}</div>
+</div>
+
+<div class="row">
+    <div class="col-6"><p >Mobile </p></div>
+    <div class="col-6">{{h.mobile}}</div>
+</div>
+<div class="row">
+    <div class="col-6"><p >pin </p></div>
+    <div class="col-6">{{h.pin}}</div>
+</div>
+<div class="text-center ">
+    <a  href="" data-bs-toggle="modal" data-bs-target="#Edit_hotel_Modal"  class="btn btn-info px-5 btn-sm mb-3" >Edit</a>
+    
+</div>
+</div>
+
+
+
+
+
+
+<!-- Edit hotel Modal -->
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="modal fade" id="Edit_hotel_Modal" tabindex="-1" aria-labelledby="Edit_hotel_Modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="Edit_hotel_Modal">Edit Profile</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+                <input type="hidden" name="employee_id" value="{{marketing_employee_id}}">
+                <input type="hidden" name="hotel_id" value="{{h.id}}">
+                <div class="mb-3">
+                    <label for="hotel_name" class="form-label">Hotel Name</label>
+                    <input type="text" class="form-control" id="hotel_name" name="hotel_name" value="{{h.hotel_name}}">
+                  </div>
+    
+                  <div class="mb-3">
+                    <label for="owner_name" class="form-label">Woner Name</label>
+                    <input type="text" class="form-control" id="owner_name" name="owner_name" value="{{h.owner_name}}">
+                  </div>                  
+    
+                  <div class="mb-3">
+                   <label for="hotel_address" class="form-label">Address</label>
+                    <input type="text" class="form-control" id="hotel_address" name="hotel_address" value="{{h.hotel_address}}">
+                  </div>
+                
+                
+
+                
+                      <div class="mb-3">
+                   <label for="pin" class="form-label">Secret Pin</label>
+                    <input type="number" class="form-control" id="pin" name="pin" value="{{h.pin}}">
+                  </div>
+                
+    
+                 <br>
+                
+                
+    
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" name="Edit">Submit</button>
+      </div>
+      </div>
+    </div>
+    </div>
+    </form>
+    
+    
+    
+      
+    
+    
+{% endblock content %}

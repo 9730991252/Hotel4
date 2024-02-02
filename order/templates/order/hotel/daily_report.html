@@ -1,0 +1,71 @@
+{% extends 'order/base.html' %}
+{% block title %}Report{% endblock title %}
+{% block content %}
+<div class="container border rounded">
+<div class=""><h>Welcome - {{h.hotel_name}}</h></div>
+<div  class="container   text-center my-3">
+  <a  href="/hotel_dashboard"   class="btn btn-success px-5 btn-sm" >Back</a>
+</div>
+
+<div class="container text-center my-4 border rounded">
+    <form action="" method="POST">{% csrf_token %}
+        <div class="row mx-3">
+            <div>
+From : <input type="date" name="fromdate" required/>
+</div>
+<div class="my-4">
+To : <input type="date" name="todate"required/>
+</div>
+<div>
+<select name="dish_id">
+    <option value="0" >All</option>
+    {% for dc in dc %}
+    <option value="{{dc.id}}">{{dc.dish_marathi_name}}</option>
+    {% endfor %}
+</select>
+</div>
+<div class="my-4">
+<button type="submit" class="btn btn-primary" name="Search">Search</button>
+</div>
+</div>
+</form>
+
+</div>
+<div class="container border my-3">
+     <h4>Total Amount Rs {{total}}</h4>
+     <h4>Total Qty {{qty}}</h4>
+</div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>{% for d in result %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{d.dish_marathi_name}}</td>
+        <td>{{d.qty}}</td>
+        <td>{{d.total_price}}</td>
+      </tr>
+     
+    
+    </tbody>
+    {% empty %}
+    <div class="text-center"><h6 class="text-bg-danger">Empty</h6></div>
+    {% endfor %}
+  </table>
+
+</div>
+<script>
+
+
+  
+  
+</script>
+
+
+{% endblock content %}

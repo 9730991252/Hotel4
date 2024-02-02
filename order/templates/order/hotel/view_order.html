@@ -1,6 +1,7 @@
 {% extends 'order/base.html' %}
 {% block title %}View Order{% endblock title %}
 {% block content %}
+
 <div class="fixed-top text-end my-3 bg-white"  ><strong id="all_qty"  class="badge bg-danger">{{ng}}</strong>- एकुण नग </div>
 <div class="my-5"><h>Welcome - {{hotel.hotel_name}}</h></div>
 <input type="hidden" id="hotel_id" value="{{hotel.id}}"></input>

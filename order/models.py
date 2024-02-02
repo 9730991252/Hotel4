@@ -130,12 +130,14 @@ class OrderMaster(models.Model):
 
 class OrderDetail(models.Model):
     hotel = models.ForeignKey(Hotel,on_delete=models.PROTECT,default=True)
+    dish=models.ForeignKey(Dish,on_delete=models.PROTECT,null=True)
     table_number=models.IntegerField(default=True)
     dish_marathi_name = models.CharField(max_length=100,default=True)
     qty = models.IntegerField(default=1)
     price=models.FloatField(default=0,null=True)
     total_price=models.FloatField(default=0,null=True)
     ordered_date = models.DateTimeField(auto_now_add=True,null=True)
+    date=models.DateField(auto_now_add=True,null=True)
     order_filter=models.IntegerField(default=True)
 
 

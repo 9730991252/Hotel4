@@ -74,6 +74,7 @@
     
     var hotel_id = document.getElementById('hotel_id').value
     $("#dish_result").empty()
+   
     $.ajax({
       url: "{% url 'filter_by_category' %}",
     method: "GET",

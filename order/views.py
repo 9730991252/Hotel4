@@ -503,6 +503,7 @@ def change_color(request):
     if request.method == 'GET':
         hotel_id = request.GET['hotel_id']
         c=Cart.objects.values().filter(hotel_id=hotel_id)
+        cart=[]
         if c:
             cart=list(c)
                 
@@ -620,15 +621,17 @@ def merge_card(request,table_id,hotel_id):
             dish_id=c.dish_id
             d=Cart.objects.filter(hotel_id=hotel_id,table_id=table_id,dish_id=dish_id)
             new_qty=0
+            new_dish_id=0
             new_total_price=0
             if d:
                 for d in d:
+                    new_dish_id=d.dish_id
                     qty=d.qty
                     total_price=d.total_price
                     new_total_price+=total_price
                     new_qty+=qty
                 NewCart(
-                    dish_id=d.dish_id,
+                    dish_id=new_dish_id,
                     dish_marathi_name=d.dish_marathi_name,
                     hotel_id=d.hotel_id,
                     table_id=d.table_id,            
@@ -656,6 +659,7 @@ def place_order(request,id):
     c=NewCart.objects.filter(hotel_id=hotel_id,table_id=id)
     if c:
         for c in c:
+            
             qty=c.qty
             price=c.price
             t=(qty*price)
@@ -678,6 +682,7 @@ def place_order(request,id):
             total_price=cart.total_price
             OrderDetail(
                 hotel_id=hotel_id,
+                dish_id=cart.dish_id,
                 table_number=table_number,
                 dish_marathi_name=dish_marathi_name,
                 qty=qty,price=price,
@@ -731,6 +736,72 @@ def complate_order(request):
     else:
         return redirect('hotel_login')
     
+
+
+
+
+def daily_report(request):
+    if request.session.has_key('hotel_mobile'):
+        hotel_mobile = request.session['hotel_mobile']
+        h=Hotel.objects.get(mobile=hotel_mobile)
+        hotel_id=h.id
+        dc=Dish.objects.filter(hotel_id=hotel_id)        
+        result={}
+        total=0
+        qty=0
+        result=OrderDetail.objects.filter(hotel_id=hotel_id)
+        if result:
+            for r in result:
+                total +=r.total_price
+                qty +=r.qty        
+        if "Search" in request.POST:
+            fromdate=request.POST.get('fromdate')
+            todate=request.POST.get('todate')
+            dish_id=request.POST.get('dish_id')
+            #print(dish_id)
+            if dish_id == '0':
+                result=OrderDetail.objects.filter(hotel_id=hotel_id,date__gte=fromdate,date__lte=todate)
+                if result:
+                    for r in result:
+                        total +=r.total_price
+                        qty +=r.qty
+            else:
+                result=OrderDetail.objects.filter(hotel_id=hotel_id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
+                if result:
+                    for r in result:
+                        total +=r.total_price
+                        qty +=r.qty
+        return render(request, 'order/hotel/daily_report.html',{'result':result,'dc':dc,'total':total,'qty':qty,'h':h})
+    
+    else:
+        return redirect('hotel_login')
+    
+
+def profile(request):
+    if request.session.has_key('hotel_mobile'):
+        hotel_mobile = request.session['hotel_mobile']
+        h=Hotel.objects.get(mobile=hotel_mobile)
+        context={}
+        if "Edit" in request.POST:
+            hotel_name=request.POST.get('hotel_name')
+            owner_name=request.POST.get('owner_name')
+            hotel_address=request.POST.get('hotel_address')
+            pin=request.POST.get('pin')
+            hotel_id=request.POST.get('hotel_id')
+            e=Hotel.objects.get(id=hotel_id)
+            e.hotel_name=hotel_name
+            e.owner_name=owner_name
+            e.hotel_address=hotel_address
+            e.pin=pin
+            e.save()
+            messages.success(request,"Hotel Edit Succesfully") 
+            h=Hotel.objects.get(mobile=hotel_mobile)
+        context={
+            'h':h
+        }
+        return render(request, 'order/hotel/profile.html',context)
+    else:
+        return redirect('hotel_login')
 
 # Waiter Code Start 
 
