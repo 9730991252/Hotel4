@@ -68,6 +68,50 @@
 <script>
  
 
+
+  
+  //plus code
+  
+  function plus(id,price){
+    var qty = document.getElementById('qty'+id).innerText
+    if(qty < 50){
+      qty++;
+    document.getElementById('qty'+id).innerText=qty;
+    p=qty*price
+    document.getElementById('prc'+id).innerText=p;
+      //speak code
+      
+    const msg = new SpeechSynthesisUtterance;
+    msg.text=qty;
+    
+    msg.voice=speechSynthesis.getVoices()[1];
+    speechSynthesis.speak(msg);
+
+    }
+      }
+      
+    // minus btn code
+  
+      function minus(id,price){
+    var qty = document.getElementById('qty'+id).innerText
+    if(qty > 1){
+    qty--;
+    document.getElementById('qty'+id).innerText=qty;
+    p=qty*price
+    document.getElementById('prc'+id).innerText=p;
+
+          //speak code
+      
+          const msg = new SpeechSynthesisUtterance;
+    msg.text=qty;
+    
+    msg.voice=speechSynthesis.getVoices()[1];
+    speechSynthesis.speak(msg);
+    }
+      }
+      
+    
+
   //fiter category code
   
   function filter_by_category(id){
@@ -97,14 +141,14 @@
     <input  type="hidden" id="myText${data.dish[key].id}" value="${data.dish[key].dish_name}"></input>
   </div>
     <div class="row text-center">
-      <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
+      <div class="col-5">Rs <strong  id="prc${data.dish[key].id}"  >${data.dish[key].price}</strong></div>
       <div class="col-5 "><input id="note${data.dish[key].id}" type="text" size="2" placeholder="note"></input></div>
     </div>
   
     <div class="row my-4 text-center">
-          <div class="col-2 mx-2"><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success px-3">-</button></div>
+          <div class="col-2 mx-2"><button type="button" onclick="minus(${data.dish[key].id},${data.dish[key].price})" class="btn btn-success px-3">-</button></div>
           <div class="col-1"><strong  id="qty${data.dish[key].id}"  >1</strong></div>
-          <div class="col-2"><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success px-3" >+</button></div>
+          <div class="col-2"><button type="button" onclick="plus(${data.dish[key].id},${data.dish[key].price})" class="btn btn-success px-3" >+</button></div>
           <div class="col-6"><button type="button" class="btn btn-danger mx-auto" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></div>
         </div>
     </div>
@@ -139,20 +183,21 @@
       for (var key=0; key<1000; key++){
         var temp =`
                   
-                  <div class="col-sm-4 border my-5 mx-3">
-                    <div class="row text-center my-3">
-    <div class="col-12"><h4>${data.dish[key].dish_marathi_name}</h4></div>
+        <div class="col-sm-4 border my-5 mx-3">
+  <div class="row text-center my-3">
+    
+    <div class="col-12"><h4 >${data.dish[key].dish_marathi_name}</h4></div>
     <input  type="hidden" id="myText${data.dish[key].id}" value="${data.dish[key].dish_name}"></input>
   </div>
     <div class="row text-center">
-      <div class="col-5"><h5>Rs- ${data.dish[key].price}</h5></div>
+      <div class="col-5">Rs <strong  id="prc${data.dish[key].id}"  >${data.dish[key].price}</strong></div>
       <div class="col-5 "><input id="note${data.dish[key].id}" type="text" size="2" placeholder="note"></input></div>
     </div>
   
     <div class="row my-4 text-center">
-          <div class="col-2 mx-2"><button type="button" onclick="minus(${data.dish[key].id})" class="btn btn-success px-3">-</button></div>
+          <div class="col-2 mx-2"><button type="button" onclick="minus(${data.dish[key].id},${data.dish[key].price})" class="btn btn-success px-3">-</button></div>
           <div class="col-1"><strong  id="qty${data.dish[key].id}"  >1</strong></div>
-          <div class="col-2"><button type="button" onclick="plus(${data.dish[key].id})" class="btn btn-success px-3" >+</button></div>
+          <div class="col-2"><button type="button" onclick="plus(${data.dish[key].id},${data.dish[key].price})" class="btn btn-success px-3" >+</button></div>
           <div class="col-6"><button type="button" class="btn btn-danger mx-auto" onclick=add_to_cart(${data.dish[key].id},${data.dish[key].price})>Confirm </button></div>
         </div>
     </div>
@@ -168,41 +213,21 @@
   
   
   
-  
-  //plus code
-  
-  function plus(id){
-    var qty = document.getElementById('qty'+id).innerText
-    if(qty < 50){
-      qty++;
-    document.getElementById('qty'+id).innerText=qty;
-    }
-      }
-      
-    // minus btn code
-  
-      function minus(id){
-    var qty = document.getElementById('qty'+id).innerText
-    if(qty > 1){
-    qty--;
-    document.getElementById('qty'+id).innerText=qty;
-    }
-      }
-      
-    
+
   // add to cart 
   
   function add_to_cart(id,price){
     var qty = document.getElementById('qty'+id).innerText;
     dish_id=id
     price=price
-    
+     //textInput= (textInput+price);
     const textInput = document.querySelector('#myText'+id);
-    //textInput= (textInput+price);
+   
+    sp=(qty + 'cvonteti')
     const msg = new SpeechSynthesisUtterance;
-    msg.text=textInput.value;
-    msg.text=textInput.value;
-    msg.voice=speechSynthesis.getVoices()[3];
+    msg.text=(textInput.value + sp  );
+    
+    msg.voice=speechSynthesis.getVoices()[2];
     speechSynthesis.speak(msg);
 
     var hotel_id = document.getElementById('hotel_id').value;
