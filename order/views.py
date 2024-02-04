@@ -755,18 +755,19 @@ def daily_report(request):
             todate=request.POST.get('todate')
             dish_id=request.POST.get('dish_id')
             #print(dish_id)
+            result=OrderDetail.objects.filter(hotel_id=hotel_id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
+            if result:
+                for r in result:
+                    total +=r.total_price
+                    qty +=r.qty            
             if dish_id == '0':
                 result=OrderDetail.objects.filter(hotel_id=hotel_id,date__gte=fromdate,date__lte=todate)
                 if result:
                     for r in result:
                         total +=r.total_price
                         qty +=r.qty
-            else:
-                result=OrderDetail.objects.filter(hotel_id=hotel_id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
-                if result:
-                    for r in result:
-                        total +=r.total_price
-                        qty +=r.qty
+            
+
         return render(request, 'order/hotel/daily_report.html',{'result':result,'dc':dc,'total':total,'qty':qty,'h':h})
     
     else:
