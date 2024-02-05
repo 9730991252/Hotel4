@@ -42,6 +42,7 @@ To : <input type="date" name="todate"required/>
         <th scope="col">Name</th>
         <th scope="col">Qty</th>
         <th scope="col">Total</th>
+        <th scope="col">Date</th>
       </tr>
     </thead>
     <tbody>{% for d in result %}
@@ -50,6 +51,7 @@ To : <input type="date" name="todate"required/>
         <td>{{d.dish_marathi_name}}</td>
         <td>{{d.qty}}</td>
         <td>{{d.total_price}}</td>
+        <td>{{d.ordered_date}}</td>
       </tr>
      
     
