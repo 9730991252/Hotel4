@@ -745,7 +745,7 @@ def daily_report(request):
         hotel_mobile = request.session['hotel_mobile']
         h=Hotel.objects.get(mobile=hotel_mobile)
         hotel_id=h.id
-        dc=Dish.objects.filter(hotel_id=hotel_id)        
+        dc=Dish.objects.filter(hotel_id=hotel_id).order_by('dish_category')        
         result={}
         total=0
         qty=0
