@@ -16,39 +16,51 @@
 <div id="p" class="container p-5  border rounded">
   <a id="p" href="/complate_order"   class="btn btn-success px-5 btn-sm" >Back</a>
 </div>
+
 <div class="container border">
+<div class="row">
+  <div class="col-11">
 <h3 class="text-center">{{h.hotel_name}}</h3>
-<div>
-  <div class="d-flex col"> <h4>Bill Number-{{bill_number}}</h4> 
-    <h4>Table-{{table_number}}</h4>
-  </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-6"> <h6>Bill Number-{{bill_number}}</h6> </div>
+  <div class="col-6"><h6>Table-{{table_number}}</h6></div>
+</div>
+
   <div>
-    <h5>date-{{date}}</h5>
+    <h6>date-{{date}}</h6>
   </div>
 </div>
-</div>
+
+
+
+
 <div class="container border">
       
     <table class="table">
-      <thead>
+      
+      <thead><div class="row">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Item Name</th>
-          <th scope="col">Qty</th>
-          <th scope="col">Price</th>
-          <th scope="col">Total Price</th>
+          
+          <div class="col-4"><th scope="col">Item Name</th></div>
+          <div class="col-2"><th scope="col">Qty</th></div>
+          <div class="col-3"><th scope="col">Price</th></div>
+          <div class="col-3"><th scope="col">Price</th></div>
         </tr>
+      </div>
       </thead>
-      <tbody>
+      <tbody><div class="row">
         {% for o in od %}
         <tr>
-          <td>{{forloop.counter}}</td>
-          <td>{{o.dish_marathi_name}}</td>
-          <td>{{o.qty}}</td>
-          <td>{{o.price}}</td>
-          <td>{{o.total_price}}</td>
+          
+          <div class="col-4"><td>{{o.dish_marathi_name}}</td></div>
+          <div class="col-2"><td>{{o.qty}}</td></div>
+          <div class="col-3"><td>{{o.price}}</td></div>
+          <div class="col-3"><td>{{o.total_price}}</td></div>
         </tr>
-        {% endfor %}
+        {% endfor %}</div>
       </tbody>
     </table>
     <h4>Total Amount Rs. {{total}}</h4>
