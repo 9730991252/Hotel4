@@ -3,7 +3,7 @@
 {% block content %}
 <style media="print">
   @page{
-  size: 3in 8in;
+  size: 3in 5in;
 }
 
 #p{
@@ -50,23 +50,24 @@
       <thead><div class="row">
         <tr>
           
-          <div class="col-4"><th scope="col">Item </th></div>
-          <div class="col-2"><th scope="col">Qty</th></div>
-          <div class="col-3"><th scope="col">Price</th></div>
-          <div class="col-3"><th scope="col">Price</th></div>
+          <div class="col-8"><th scope="col">Item </th></div>
+          <div class="col-1"><th scope="col">Qty</th></div>
+          <div class="col-1"><th scope="col">Price</th></div>
+          <div class="col-2"><th scope="col">Price</th></div>
         </tr>
       </div>
       </thead>
-      <tbody><div class="row">
+      <tbody>
         {% for o in od %}
         <tr>
-          
-          <div class="col-4"><td>{{o.dish_marathi_name}}</td></div>
-          <div class="col-2"><td>{{o.qty}}</td></div>
-          <div class="col-3"><td>{{o.price}}</td></div>
-          <div class="col-3"><td>{{o.total_price}}</td></div>
+          <div class="row">
+          <div class="col-8"><td>{{o.dish_marathi_name}}</td></div>
+          <div class="col-1"><td>{{o.qty}}</td></div>
+          <div class="col-1"><td>{{o.price}}</td></div>
+          <div class="col-2"><td>{{o.total_price}}</td></div>
+        </div>
         </tr>
-        {% endfor %}</div>
+        {% endfor %}
       </tbody>
     </table>
     <h4>Total Amount Rs. {{total}}</h4>
