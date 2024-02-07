@@ -4,6 +4,7 @@
 <style media="print">
   @page{
   size: 3in 5in;
+  margin: 0in;
 }
 
 #p{
@@ -47,15 +48,16 @@
       
     <table class="table">
       
-      <thead><div class="row">
+      <thead>
         <tr>
-          
-          <div class="col-8"><th scope="col">Item </th></div>
-          <div class="col-1"><th scope="col">Qty</th></div>
-          <div class="col-1"><th scope="col">Price</th></div>
-          <div class="col-2"><th scope="col">Price</th></div>
+          <div class="row">
+          <div class="col-8"><th >Item </th></div>
+          <div class="col-1"><th >Qty</th></div>
+          <div class="col-1"><th >Price</th></div>
+          <div class="col-2"><th >Price</th></div>
+        </div>
         </tr>
-      </div>
+      
       </thead>
       <tbody>
         {% for o in od %}

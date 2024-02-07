@@ -1,20 +1,49 @@
 {% extends 'order/base.html' %}
-{% block title %}Add Order{% endblock title %}
+{% block title %}complate order{% endblock title %}
 {% block content %}
-
-<input id="myText" value="{{name.dish_name}}"></input>
-<button id="btn" onclick="text_to_speech()">speech</button>
-
-
-<script>
-  const textInput = document.querySelector('#myText');
+<style media="print">
+  @page{
+  size: 3in 5in;
+  margin: 0in;
   
-  function text_to_speech(){
-    const msg = new SpeechSynthesisUtterance;
-    msg.text=textInput.value;
-    msg.voice=speechSynthesis.getVoices()[0];
-    speechSynthesis.speak(msg);
-  }
-</script>
+}
+
+
+
+#p{
+  display: none;
+}
+</style>
+
+<div class="container border p-0">
+
+  <div class="row">
+          <div class="col-sm-6"><td>Panir masala</td></div>
+          <div class="col-sm-1"><td>3</td></div>
+          <div class="col-sm-2"><td>180</td></div>
+          <div class="col-sm-2"><td>360</td></div>
+  </div>
+  
+  
+  
+  
+
+
+
+</div>
+
+
+
+
+<button id="p" type="button" class="btn btn-primary my-3" onclick="Bill_print()">Print</button>
+  <script>
+
+    function Bill_print(){
+    window.print();
+    }
+    
+    
+    </script>
 
 {% endblock content %}
+
