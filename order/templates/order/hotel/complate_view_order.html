@@ -5,10 +5,15 @@
   @page{
   size: 3in 5in;
   margin: 0in;
+  padding: 0in;
 }
 
 #p{
   display: none;
+}
+
+#t{
+  font-size: 14px;
 }
 </style>
 
@@ -46,7 +51,7 @@
 
 <div class="container border">
       
-    <table class="table">
+    <table id="t" class="table">
       
       <thead>
         <tr>
@@ -72,8 +77,8 @@
         {% endfor %}
       </tbody>
     </table>
-    <h4>Total Amount Rs. {{total}}</h4>
-    <h5>Thank You Visit Again</h5>
+    <h6>Total Amount Rs. {{total}}</h6>
+    <h6>Thank You Visit Again</h6>
   </div>
 
 
