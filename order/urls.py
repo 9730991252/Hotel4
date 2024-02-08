@@ -36,6 +36,6 @@ urlpatterns = [
     path('multiple_order',views.multiple_order,name='multiple_order'),
     path('daily_report',views.daily_report,name='daily_report'),    
     path('profile',views.profile,name='profile'),    
-    path('test',views.test,name='test'),
+    path('login',views.login,name='login'),
    
 ]

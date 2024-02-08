@@ -173,6 +173,42 @@ def hotel (request):
 # end Sunil Code
     
 
+
+# Login Code 
+    
+def login (request):
+    if request.session.has_key('hotel_mobile'):
+        return redirect('hotel_dashboard')
+    if request.session.has_key('waiter_mobile'):
+        return redirect('waiter_dashboard')
+    if request.session.has_key('chef_mobile'):
+        return redirect('chef_dashboard')
+    else:
+        if request.method == "POST":
+            mb=request.POST ['mb']
+            pin=request.POST ['pin']
+            s= Hotel.objects.filter(mobile=mb,pin=pin,status=1)
+            if s:
+                request.session['hotel_mobile'] = request.POST["mb"]
+                return redirect('hotel_dashboard')
+            e= Employee.objects.filter(employee_mobile=mb,pin=pin,status=1,department='waiter')
+            if e:
+                request.session['waiter_mobile'] = request.POST["mb"]
+                return redirect('waiter_dashboard')
+            e= Employee.objects.filter(employee_mobile=mb,pin=pin,status=1,department='chef')
+            if e:
+                request.session['chef_mobile'] = request.POST["mb"]
+                return redirect('chef_dashboard')
+            else:
+                messages.success(request,"please insert correct information or call more suport 9730991252")            
+                return redirect('login')
+    return render(request,'order/login.html')
+
+
+
+
+
+
 # Hotel Code Start
     
 def hotel_login(request):
@@ -1010,11 +1046,6 @@ def multiple_order(request):
             cart=list(cart)    
 
         return JsonResponse({'status': 1,'cart':cart})                    
-
-def test (request):
-    name=Dish.objects.get(id=2)
-    return render(request,'order/test.html',{'name':name})
-
 
 
 
