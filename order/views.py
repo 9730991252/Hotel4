@@ -210,22 +210,6 @@ def login (request):
 
 
 # Hotel Code Start
-    
-def hotel_login(request):
-    if request.session.has_key('hotel_mobile'):
-        return redirect('hotel_dashboard')
-    else:
-        if request.method == "POST":
-            mb=request.POST ['mb']
-            pin=request.POST ['pin']
-            s= Hotel.objects.filter(mobile=mb,pin=pin,status=1)
-            if s:
-                request.session['hotel_mobile'] = request.POST["mb"]
-                return redirect('hotel_dashboard')
-            else:
-                messages.success(request,"please insert correct information or call more suport 9730991252")            
-                return redirect('hotel_login')
-        return render(request,'order/hotel/hotel_login.html')
 
 
 def hotel_dashboard(request):
@@ -840,24 +824,6 @@ def profile(request):
 
 
 
-def waiter_login(request):
-    if request.session.has_key('waiter_mobile'):
-        return redirect('waiter_dashboard')
-    else:
-        if request.method == "POST":
-            mb=request.POST ['mb']
-            pin=request.POST ['pin']
-            s= Employee.objects.filter(employee_mobile=mb,pin=pin,status=1,department='waiter')
-            if s:
-                request.session['waiter_mobile'] = request.POST["mb"]
-                return redirect('waiter_dashboard')
-            else:
-                messages.success(request,"please insert correct information or call more suport 9730991252")            
-                return redirect('waiter_login')
-        return render(request,'order/waiter/waiter_login.html')
-
-
-
 
 def waiter_dashboard (request):
     if request.session.has_key('waiter_mobile'):
@@ -940,23 +906,6 @@ def remove_cart_waiter(request):
 
 # Chef Code Start
     
-
-def chef_login(request):
-    if request.session.has_key('chef_mobile'):
-        return redirect('chef_dashboard')    
-    else:
-        if request.method == "POST":
-            mb=request.POST ['mb']
-            pin=request.POST ['pin']
-            s= Employee.objects.filter(employee_mobile=mb,pin=pin,status=1,department='chef')
-            if s:
-                request.session['chef_mobile'] = request.POST["mb"]
-                return redirect('chef_dashboard')
-            else:
-                messages.success(request,"please insert correct information or call more suport 9730991252")            
-                return redirect('chef_login')
-        return render(request,'order/chef/chef_login.html')
-
 
 
 def chef_dashboard(request):
