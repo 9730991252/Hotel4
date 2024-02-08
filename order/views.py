@@ -241,7 +241,7 @@ def hotel_dashboard(request):
         return render(request, 'order/hotel/hotel_dashboard.html',context)
     
     else:
-        return redirect('hotel_login')
+        return redirect('login')
     
 
 
@@ -317,7 +317,7 @@ def employee(request):
                     ac.save()                                                
         return render(request,'order/hotel/employee.html',context=context)
     else:   
-        return redirect('hotel_login')
+        return redirect('login')
 
 
 
@@ -361,7 +361,7 @@ def table(request):
                     ac.save()            
         return render(request,'order/hotel/table.html',context=context)
     else:
-        return redirect('hotel_login')
+        return redirect('login')
 
     
 def dish_category(request):
@@ -406,7 +406,7 @@ def dish_category(request):
                 ac.save()            
         return render(request,'order/hotel/dish_category.html',context=context)
     else:
-        return redirect('hotel_login')
+        return redirect('login')
 
 
 
@@ -469,7 +469,7 @@ def dish(request):
             ac.save()            
         return render(request,'order/hotel/dish.html',context=context)
     else:
-        return redirect('hotel_login')
+        return redirect('login')
     
 
 def logout (request):
@@ -514,7 +514,7 @@ def running_table(request):
         return render(request, 'order/hotel/running_table.html', data)
     
     else:
-        return redirect('hotel_login')
+        return redirect('login')
     
 
 
@@ -555,7 +555,7 @@ def view_order(request,id):
 
         return render(request,'order/hotel/view_order.html',{'cart':cart,'table':table,'hotel':hotel,'dish_category':dish_category,'amount':amount,'ng':ng})
     else:
-        return redirect('hotel_login')
+        return redirect('login')
     
 
 
@@ -738,7 +738,7 @@ def complate_view_order(request,id):
             }
         return render(request,'order/hotel/complate_view_order.html',context)
     else:
-        return redirect('hotel_login')
+        return redirect('login')
     
 
 
@@ -754,7 +754,7 @@ def complate_order(request):
         }
         return render(request, 'order/hotel/complate_order.html',context)
     else:
-        return redirect('hotel_login')
+        return redirect('login')
     
 
 
@@ -791,7 +791,7 @@ def daily_report(request):
         return render(request, 'order/hotel/daily_report.html',{'result':result,'dc':dc,'total':total,'qty':qty,'h':h})
     
     else:
-        return redirect('hotel_login')
+        return redirect('login')
     
 
 def profile(request):
@@ -818,7 +818,7 @@ def profile(request):
         }
         return render(request, 'order/hotel/profile.html',context)
     else:
-        return redirect('hotel_login')
+        return redirect('login')
 
 # Waiter Code Start 
 
@@ -867,7 +867,7 @@ def waiter_dashboard (request):
             }
         return render(request,'order/waiter/waiter_dashboard.html',context=context)
     else:
-        return redirect('waiter_login')
+        return redirect('login')
     
 
 def waiter_add_order(request,id):
@@ -893,7 +893,7 @@ def waiter_add_order(request,id):
                 Cart.objects.get(id=cart_id).delete()
         return render(request,'order/waiter/waiter_add_order.html',context=context)
     else:
-        return redirect('waiter_login')
+        return redirect('login')
     
 def remove_cart_waiter(request):
     if request.method == 'GET':
@@ -950,7 +950,7 @@ def chef_dashboard(request):
 
         return render(request,'order/chef/chef_dashboard.html',context=context)
     else:
-        return redirect('chef_login')
+        return redirect('login')
 
 
 def multiple_select(request):
