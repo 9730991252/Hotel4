@@ -13,6 +13,7 @@ urlpatterns = [
     path('table',views.table,name='table'),
     path('dish_category',views.dish_category , name='dish_category'),
     path('dish',views.dish,name='dish'),
+    path('login',views.login,name='login'),
     path('logout',views.logout,name='logout'),
     path('waiter_logout',views.waiter_logout,name='waiter_logout'),
     path('chef_logout',views.chef_logout,name='chef_logout'),
@@ -35,6 +36,6 @@ urlpatterns = [
     path('multiple_order',views.multiple_order,name='multiple_order'),
     path('daily_report',views.daily_report,name='daily_report'),    
     path('profile',views.profile,name='profile'),    
-    path('login',views.login,name='login'),
+    path('test',views.test,name='test'),
    
 ]

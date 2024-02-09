@@ -3,6 +3,7 @@ from .models import *
 from django.contrib import messages
 from django.db.models import Q 
 from django.http import JsonResponse
+from datetime import date
 
 # Create your views here.
 def index(request):
@@ -241,7 +242,7 @@ def hotel_dashboard(request):
             o=OrderMaster.objects.filter(hotel_id=h.id).count()
             total=0
 
-            total_amount=OrderDetail.objects.filter(hotel_id=h.id)
+            total_amount=OrderDetail.objects.filter(hotel_id=h.id,date__gte=date.today(),date__lte=date.today())
             for total_amount in total_amount:
                 temp=(total_amount.qty*total_amount.price)
                 total+=temp
@@ -1008,3 +1009,11 @@ def multiple_order(request):
 
 
 
+def test(request):
+    total_amount=OrderDetail.objects.filter(hotel_id=1,date__gte=date.today(),date__lte=date.today())
+    total=0
+    for total_amount in total_amount:
+        temp=(total_amount.qty*total_amount.price)
+        total+=temp
+    test=date.today()
+    return render(request,'order/test.html',{'test':total})
