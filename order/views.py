@@ -206,6 +206,21 @@ def login (request):
 
 
 
+def logout (request):
+    del request.session['hotel_mobile']
+    return redirect('/')
+
+
+def waiter_logout(request):
+    del request.session['waiter_mobile']
+    return redirect('/')
+
+def chef_logout(request):
+    del request.session['chef_mobile']
+    return redirect('/')
+
+
+
 
 
 
@@ -471,11 +486,6 @@ def dish(request):
     else:
         return redirect('login')
     
-
-def logout (request):
-    del request.session['hotel_mobile']
-    return redirect('/')
-
 
 
 
