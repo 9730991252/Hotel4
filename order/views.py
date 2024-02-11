@@ -576,7 +576,7 @@ def filter_by_category(request):
     if request.method == 'GET':
         dish_category_id = request.GET['dish_category_id']
         hotel_id = request.GET['hotel_id']
-        filter_result = Dish.objects.values().filter(dish_category_id=dish_category_id,hotel_id=hotel_id,status=1)
+        filter_result = Dish.objects.values().filter(dish_category_id=dish_category_id,hotel_id=hotel_id,status=1).order_by('dish_marathi_name')
         dish = list(filter_result)
         #print(dish)
         return JsonResponse({'status': 1, 'dish': dish})
