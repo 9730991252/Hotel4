@@ -12,7 +12,7 @@
 		{% endif %}
     <div class="row">
         <div class="col-6"><a href="/hotel_dashboard"   class="btn btn-success " >Hotel Dashbord</a></div>
-        <div class="col-6"><a href="" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#Add_Dish_Modal">Add New Dish</a></div>
+        <div class="col-6"><a href="" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#Add_Dish_Modal">Add New Items</a></div>
         
     </div>
 
@@ -24,9 +24,9 @@
 	<thead>
 	  <tr>
 		<th scope="col">Number</th>
-		<th scope="col">Dish Name</th>
-		<th scope="col">डिश मराठी नाव </th>
-        <th scope="col">Dish Category </th>
+		<th scope="col">Item English Name</th>
+		<th scope="col">आयटम मराठी नाव </th>
+        <th scope="col">Item Category </th>
 		<th scope="col">Price </th>
 		<th scope="col">Status</th>
 		<th scope="col">Edit</th>
@@ -53,7 +53,7 @@
 		<div class="modal-dialog">
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <h1 class="modal-title fs-5" id="Edit_Dish_Category_Modal_{{dc.id}}">Edit Category</h1>
+			  <h1 class="modal-title fs-5" id="Edit_Dish_Category_Modal_{{dc.id}}">Edit Item</h1>
 			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -61,19 +61,19 @@
 				<div class="p-3">
 					<input type="hidden" name="hotel_id" value="{{h.id}}">
 					<input type="hidden" name="dish_id" value="{{d.id}}">
-					<label for="dish_name">Dish Name</label>
+					<label for="dish_name">Item Name</label>
 					<input type="text" name="dish_name" id="dish_name" class="form-control" value="{{d.dish_name}}">
 				  </div>
 	
 				  <div class="p-3">
 					<input type="hidden" name="hotel_id" value="{{h.id}}">
-					<label for="dish_marathi_name">डिश मराठी नाव </label>
+					<label for="dish_marathi_name">आयटम मराठी नाव </label>
 					<input type="text" name="dish_marathi_name" id="dish_marathi_name" class="form-control" value="{{d.dish_marathi_name}}">
 				  </div>
 	
 
 				  <div class="">
-					<label for="dish_category_id">Select Dish Category </label>
+					<label for="dish_category_id">Select Item Category </label>
 					<select class="form-control" name="dish_category_id" required>
 						<option value="">Select Category</option>
 						{%for c in c %}
@@ -134,25 +134,25 @@
 		<div class="modal-dialog">
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <h1 class="modal-title fs-5" id="Add_Dish_Modal">Add New Dish</h1>
+			  <h1 class="modal-title fs-5" id="Add_Dish_Modal">Add New Item</h1>
 			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 
 			  <div class="p-3">
                 <input type="hidden" name="hotel_id" value="{{h.id}}">
-				<label for="dish_name">Dish Eglish Name</label>
+				<label for="dish_name">Item Eglish Name</label>
 				<input type="text" name="dish_name" id="dish_name" class="form-control" required>
 			  </div>
 
 			  <div class="p-3">
                 <input type="hidden" name="hotel_id" value="{{h.id}}">
-				<label for="dish_marathi_name">डिश मराठी नाव </label>
+				<label for="dish_marathi_name">आयटम मराठी नाव </label>
 				<input type="text" name="dish_marathi_name" id="dish_marathi_name" class="form-control" required>
 			  </div>
 
               <div class="">
-				<label for="dish_category_id">Select Dish Category </label>
+				<label for="dish_category_id">Select Item Category </label>
 				<select class="form-control" name="dish_category_id" required>
                     <option value="">Select Category</option>
                     {%for c in c %}
