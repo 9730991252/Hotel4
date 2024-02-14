@@ -36,7 +36,7 @@ def sunil_login(request):
         s = a+b
         if s == 10000 :
             request.session['sunil_mobile'] = s
-            return redirect('marketing_employee')
+            return redirect('sunil_dashboard')
         else:
             return redirect('sunil_login')
     return render(request,'order/sunil/sunil_login.html')
@@ -99,7 +99,18 @@ def marketing_employee(request):
     else:   
         return redirect('sunil_login')
 
+def sunil_dashboard(request):
+    if request.session.has_key('sunil_mobile'):
+        context={}
+        o=Cart.objects.all().order_by('-added_date')
+        context={
+            'o':o
+        }
+        return render(request,'order/sunil/sunil_dashboard.html',context)
+    else:   
+        return redirect('sunil_login')
 
+# marketing Employee Code
 
 def marketing_employee_login(request):
     if request.method == "POST":

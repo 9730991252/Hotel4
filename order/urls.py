@@ -5,6 +5,7 @@ from order import views
 urlpatterns = [
     path('', views.index,name='index'),
     path('sunil_login', views.sunil_login,name='sunil_login'),
+    path('sunil_dashboard', views.sunil_dashboard,name='sunil_dashboard'),
     path('marketing_employee', views.marketing_employee,name='marketing_employee'),
     path('marketing_employee_login', views.marketing_employee_login,name='marketing_employee_login'),
     path('hotel', views.hotel,name='hotel'),

@@ -1,0 +1,26 @@
+{% extends 'order/base.html' %}
+{% block content %}
+{% include 'order/hotel/navbar.html' %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Hotel Name</th>
+        <th scope="col">Iteam</th>
+        <th scope="col">Qty</th>
+        <th scope="col">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>{% for o in o %}
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{o.hotel.hotel_name |slice:":5" }}...</td>
+        <td>{{o.dish_marathi_name}}</td>
+        <td>{{o.qty}}</td>
+        <td>{{o.added_date}}</td>
+      </tr>{% endfor %}
+
+
+    </tbody>
+  </table>
+{% endblock content %}
