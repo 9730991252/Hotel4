@@ -14,7 +14,7 @@
     <tbody>
       <tr>{% for o in o %}
         <th scope="row">{{forloop.counter}}</th>
-        <td>{{o.hotel.hotel_name |slice:":5" }}...</td>
+        <td>{{o.hotel.hotel_name |slice:":15" }}...</td>
         <td>{{o.dish_marathi_name}}</td>
         <td>{{o.qty}}</td>
         <td>{{o.added_date}}</td>

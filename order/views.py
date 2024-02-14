@@ -560,7 +560,7 @@ def view_order(request,id):
         hm = request.session['hotel_mobile']
         hotel=Hotel.objects.get(mobile=hm)
         ng=len(Cart.objects.filter(hotel_id=hotel.id,table_id=id))
-        dish_category=Dish_category.objects.filter(hotel_id=hotel.id,status=1)
+        dish_category=Dish_category.objects.filter(hotel_id=hotel.id,status=1).order_by('category_name')
         cart=Cart.objects.filter(hotel_id=hotel.id,table_id=id).order_by('dish_id')
         table=Table.objects.get(id=id)
         amount=0
@@ -897,7 +897,7 @@ def waiter_add_order(request,id):
         wm = request.session['waiter_mobile']
         w=Employee.objects.get(employee_mobile=wm)
         h=Hotel.objects.get(id=w.hotel_id)  
-        dish_category=Dish_category.objects.filter(hotel_id=w.hotel_id,status=1)
+        dish_category=Dish_category.objects.filter(hotel_id=w.hotel_id,status=1).order_by('category_name')
         t=Table.objects.get(id=id)        
         cart=Cart.objects.filter(hotel_id=w.hotel_id,table_id=id).order_by('dish_id')
         ng=len(Cart.objects.filter(hotel_id=w.hotel_id,table_id=id))
