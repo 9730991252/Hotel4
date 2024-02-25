@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.db.models import Q 
 from django.http import JsonResponse
 from datetime import date
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
@@ -103,6 +104,7 @@ def sunil_dashboard(request):
     if request.session.has_key('sunil_mobile'):
         context={}
         o=Cart.objects.all().order_by('-added_date')
+        
         context={
             'o':o
         }
@@ -372,6 +374,7 @@ def table(request):
                         hotel_id=hotel_id
                     ).save()
                     messages.success(request,"Table Added Succesfully")
+                    return redirect('table')
                 elif "Delete" in request.POST:
                     id=request.POST.get('id')
                     Table.objects.get(id=id).delete()
@@ -410,6 +413,7 @@ def dish_category(request):
                     hotel_id=hotel_id
                 )
                 messages.success(request,"Category Added Succesfully")
+                return redirect('dish_category')
             elif "Edit" in request.POST:
                 name=request.POST.get('name')
                 id=request.POST.get('id')
@@ -464,6 +468,7 @@ def dish(request):
 
             ).save()
             messages.success(request,"Dish Added Succesfully")
+            return redirect('dish')
         elif "Edit" in request.POST:
             dish_name=request.POST.get('dish_name')
             dish_marathi_name=request.POST.get('dish_marathi_name')
@@ -770,7 +775,12 @@ def complate_order(request):
         hotel_mobile = request.session['hotel_mobile']
         h=Hotel.objects.get(mobile=hotel_mobile)
         hotel_id=h.id
+        #m=OrderMaster.objects.filter(hotel_id=hotel_id).order_by('-order_filter')
         m=OrderMaster.objects.filter(hotel_id=hotel_id).order_by('-order_filter')
+        m=Paginator(m,25)
+        page_number=request.GET.get('page')
+        m=m.get_page(page_number)
+
         context={
             'm':m
         }
@@ -791,7 +801,8 @@ def daily_report(request):
         result={}
         total=0
         qty=0
-      
+        fromdate={}
+        todate={}
         if "Search" in request.POST:
             fromdate=request.POST.get('fromdate')
             todate=request.POST.get('todate')
@@ -810,7 +821,7 @@ def daily_report(request):
                         qty +=r.qty
             
 
-        return render(request, 'order/hotel/daily_report.html',{'result':result,'dc':dc,'total':total,'qty':qty,'h':h})
+        return render(request, 'order/hotel/daily_report.html',{'result':result,'dc':dc,'total':total,'qty':qty,'h':h,'fromdate':fromdate,'todate':todate})
     
     else:
         return redirect('login')
