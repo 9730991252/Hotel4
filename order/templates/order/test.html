@@ -2,6 +2,187 @@
 {% block title %}Test{% endblock title %}
 {% block content %}
 {{test}}
+<div class="container p-5 m-5 border rounded">
+    <h6>welcome {{h.hotel_name}} </h6>
+    {% if messages %}
+		
+		{% for message in messages %}
+		<div class="alert alert-success text-center mb-3">{{message}}</div>
+		{% endfor %}
+		{% endif %}
+    <div class="row">
+        <div class="col-6"><a href="/hotel_dashboard"   class="btn btn-success " >Hotel Dashbord</a></div>
+        <div class="col-6"><a href="" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#Add_Dish_Modal">Add New Items</a></div>
+        
+    </div>
 
+
+
+
+
+<table class="table">
+	<thead>
+	  <tr>
+		<th scope="col">Number</th>
+		<th scope="col">Item English Name</th>
+		<th scope="col">आयटम मराठी नाव </th>
+        <th scope="col">Item Category </th>
+		<th scope="col">Price </th>
+		<th scope="col">Status</th>
+		<th scope="col">Edit</th>
+		<th scope="col">Delete</th>
+	  </tr>
+	</thead>
+	<tbody>{% for d in d %}
+	  <tr>
+		<th scope="row">{{forloop.counter}}</th>
+		<td>{{d.dish_name}}</td>
+		<td>{{d.dish_marathi_name}}</td>
+        <td>{{d.dish_category.category_name}}</td>
+		<td>{{d.price}}</td>
+		<td><form class="" method="POST">{% csrf_token %}{% if d.status == 1 %}<button class="btn btn-success" type="submit" name="Active">Active<input type="hidden" name="id" value="{{d.id}}"></button>{% else %}<button class="btn btn-danger" type="submit" name="Deactive">Deactive<input type="hidden" name="id" value="{{d.id}}"></button>{% endif %}</form></td>
+		<td><a href="" class="text-bg-info p-2"data-bs-toggle="modal" data-bs-target="#Edit_Dish_Modal_{{d.id}}" >Edit</a></td>
+		<td><a href="" class="text-bg-danger p-2" data-bs-toggle="modal" data-bs-target="#Delete_Dish_Modal_{{d.id}}" >X</a></td>
+	  </tr>
+
+	  	  
+<!-- Edit Category Modal -->
+<form action="" method="POST">
+	{% csrf_token %}
+	<div class="modal fade" id="Edit_Dish_Modal_{{d.id}}" tabindex="-1" aria-labelledby="Edit_Dish_Modal_{{d.id}}" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h1 class="modal-title fs-5" id="Edit_Dish_Category_Modal_{{dc.id}}">Edit Item</h1>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			 
+				<div class="p-3">
+					<input type="hidden" name="hotel_id" value="{{h.id}}">
+					<input type="hidden" name="dish_id" value="{{d.id}}">
+					<label for="dish_name">Item Name</label>
+					<input type="text" name="dish_name" id="dish_name" class="form-control" value="{{d.dish_name}}">
+				  </div>
+	
+				  <div class="p-3">
+					<input type="hidden" name="hotel_id" value="{{h.id}}">
+					<label for="dish_marathi_name">आयटम मराठी नाव </label>
+					<input type="text" name="dish_marathi_name" id="dish_marathi_name" class="form-control" value="{{d.dish_marathi_name}}">
+				  </div>
+	
+
+				  <div class="">
+					<label for="dish_category_id">Select Item Category </label>
+					<select class="form-control" name="dish_category_id" required>
+						<option value="">Select Category</option>
+						{%for c in c %}
+						<option value="{{c.id}}">{{c.category_name}}</option>
+						{% endfor %}
+					</select>
+	
+					<div class="mb-3">
+						<label for="price" class="form-label">price</label>
+						<input type="number" id="price" name="price" class="form-control" value="{{d.price}}">
+					  </div>
+	
+				  </div>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			  	  <button type="submit" class="btn btn-primary" name="Edit">Submit</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+</form>
+
+
+
+	  
+<!-- Delete Category Modal -->
+<form action="" method="POST">
+	{% csrf_token %}
+	<div class="modal fade" id="Delete_Dish_Modal_{{d.id}}" tabindex="-1" aria-labelledby="Delete_Dish_Category_Modal_{{dc.id}}" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-body">
+			<input type="hidden" name="dish_id" value="{{d.id}}">
+			  <p> Are you sure ? You want to Delete</p>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			  <button type="submit" class="btn btn-primary" name="Delete">Delete</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+</form>
+
+
+	  {% endfor %}
+	</tbody>
+	
+  </table>
+
+
+
+<!-- Add Dish Modal -->
+<form action="" method="POST">
+	{% csrf_token %}
+	<div class="modal fade" id="Add_Dish_Modal" tabindex="-1" aria-labelledby="Add_Dish_Modal" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h1 class="modal-title fs-5" id="Add_Dish_Modal">Add New Item</h1>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+			  <div class="p-3">
+                <input type="hidden" name="hotel_id" value="{{h.id}}">
+				<label for="dish_name">Item Eglish Name</label>
+				<input type="text" name="dish_name" id="dish_name" class="form-control" required>
+			  </div>
+
+			  <div class="p-3">
+                <input type="hidden" name="hotel_id" value="{{h.id}}">
+				<label for="dish_marathi_name">आयटम मराठी नाव </label>
+				<input type="text" name="dish_marathi_name" id="dish_marathi_name" class="form-control" oninput="english_name()" required>
+			  </div>
+
+              <div class="">
+				<label for="dish_category_id">Select Item Category </label>
+				<select class="form-control" name="dish_category_id" required>
+                    <option value="">Select Category</option>
+                    {%for c in c %}
+                    <option value="{{c.id}}">{{c.category_name}}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="mb-3">
+                    <label for="price" class="form-label">price</label>
+                    <input type="number" id="price" name="price" class="form-control" required>
+                  </div>
+
+			  </div>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			  <button type="submit" class="btn btn-primary" name="Add">Submit</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+</form>
+</div>
+
+<script>
+function english_name(){
+    e_name = document.getElementById('dish_marathi_name').value
+    e_name = e_name.toNumber()
+    console.log(e_name)
+}
+</script>
 {% endblock content %}
 
