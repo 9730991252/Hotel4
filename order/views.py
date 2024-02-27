@@ -795,33 +795,56 @@ def complate_order(request):
 def daily_report(request):
     if request.session.has_key('hotel_mobile'):
         hotel_mobile = request.session['hotel_mobile']
-        h=Hotel.objects.get(mobile=hotel_mobile)
-        hotel_id=h.id
-        dc=Dish.objects.filter(hotel_id=hotel_id).order_by('dish_category')        
-        result={}
+        h=Hotel.objects.filter(mobile=hotel_mobile).first()
+        page_number=request.GET.get('page')
+        iteam=[]
+        fromdate=[]
+        todate=[]
         total=0
         qty=0
-        fromdate={}
-        todate={}
+        if h:
+            h=Hotel.objects.get(mobile=hotel_mobile)
+            dc=Dish.objects.filter(hotel_id=h.id).order_by('dish_category')                    
         if "Search" in request.POST:
             fromdate=request.POST.get('fromdate')
             todate=request.POST.get('todate')
             dish_id=request.POST.get('dish_id')
-            #print(dish_id)
-            result=OrderDetail.objects.filter(hotel_id=hotel_id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
-            if result:
-                for r in result:
-                    total +=r.total_price
-                    qty +=r.qty            
-            if dish_id == '0':
-                result=OrderDetail.objects.filter(hotel_id=hotel_id,date__gte=fromdate,date__lte=todate)
+            dish_id=int(dish_id)
+            if 0 == dish_id:
+                result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate)
                 if result:
                     for r in result:
                         total +=r.total_price
                         qty +=r.qty
-            
+                        result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate)
+                        if result:
+                            iteam=[]
+                            iteam.extend(result)
+            else:
+                result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
+                if result:
+                    for r in result:
+                        total +=r.total_price
+                        qty +=r.qty
+                        result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
+                        if result:
+                            iteam=[]
+                            iteam.extend(result)
+        
+        iteam=Paginator(iteam,100)
+        iteam=iteam.get_page(page_number)
+        context={
+            'fromdate':fromdate,
+            'todate':todate,
+            'dc':dc,
+            'total':total,
+            'qty':qty,
+            'iteam':iteam,
+            'h':h
 
-        return render(request, 'order/hotel/daily_report.html',{'result':result,'dc':dc,'total':total,'qty':qty,'h':h,'fromdate':fromdate,'todate':todate})
+        }
+        #print(iteam)
+        return render(request, 'order/hotel/daily_report.html',context)
     
     else:
         return redirect('login')
@@ -1032,10 +1055,56 @@ def multiple_order(request):
 
 
 def test(request):
-    total_amount=OrderDetail.objects.filter(hotel_id=1,date__gte=date.today(),date__lte=date.today())
-    total=0
-    for total_amount in total_amount:
-        temp=(total_amount.qty*total_amount.price)
-        total+=temp
-    test=date.today()
-    return render(request,'order/test.html',{'test':total})
+    if request.session.has_key('hotel_mobile'):
+        hotel_mobile = request.session['hotel_mobile']
+        h=Hotel.objects.filter(mobile=hotel_mobile).first()
+        page_number=request.GET.get('page')
+        iteam=[]
+        fromdate=[]
+        todate=[]
+        total=0
+        qty=0
+        if h:
+            h=Hotel.objects.get(mobile=hotel_mobile)
+            dc=Dish.objects.filter(hotel_id=h.id).order_by('dish_category')                    
+        if "Search" in request.POST:
+            fromdate=request.POST.get('fromdate')
+            todate=request.POST.get('todate')
+            dish_id=request.POST.get('dish_id')
+            dish_id=int(dish_id)
+            if 0 == dish_id:
+                result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate)
+                if result:
+                    for r in result:
+                        total +=r.total_price
+                        qty +=r.qty
+                        result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate)
+                        if result:
+                            iteam=[]
+                            iteam.extend(result)
+            else:
+                result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
+                if result:
+                    for r in result:
+                        total +=r.total_price
+                        qty +=r.qty
+                        result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
+                        if result:
+                            iteam=[]
+                            iteam.extend(result)
+        
+        iteam=Paginator(iteam,100)
+        iteam=iteam.get_page(page_number)
+        context={
+            'fromdate':fromdate,
+            'todate':todate,
+            'dc':dc,
+            'total':total,
+            'qty':qty,
+            'iteam':iteam
+
+        }
+        print(iteam)
+        return render(request,'order/test.html',context)
+    else:
+        return redirect('login')

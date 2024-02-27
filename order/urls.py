@@ -35,8 +35,8 @@ urlpatterns = [
     path('chef_dashboard', views.chef_dashboard,name='chef_dashboard'),
     path('multiple_select',views.multiple_select,name='multiple_select'),
     path('multiple_order',views.multiple_order,name='multiple_order'),
-    path('daily_report',views.daily_report,name='daily_report'),    
+    path('daily_report/',views.daily_report,name='daily_report'),    
     path('profile',views.profile,name='profile'),    
-    path('test',views.test,name='test'),
+    path('test/',views.test,name='test'),
    
 ]

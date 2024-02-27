@@ -8,7 +8,7 @@
 </div>
 
 <div class="container text-center my-4 border rounded">
-    <form action="" method="POST">{% csrf_token %}
+  <form method="POST" action="">{% csrf_token %}
         <div class="row mx-3">
             <div>
 From : <input type="date" name="fromdate" required/>
@@ -49,7 +49,7 @@ To : <input type="date" name="todate"required/>
         <th scope="col">Date</th>
       </tr>
     </thead>
-    <tbody>{% for d in result %}
+    <tbody>{% for d in iteam %}
       <tr>
         <th scope="row">{{forloop.counter}}</th>
         <td>{{d.dish_marathi_name}}</td>
@@ -64,6 +64,9 @@ To : <input type="date" name="todate"required/>
     <div class="text-center"><h6 class="text-bg-danger">Empty</h6></div>
     {% endfor %}
   </table>
+
+
+
 
 </div>
 <script>
