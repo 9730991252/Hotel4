@@ -802,6 +802,7 @@ def daily_report(request):
         todate=[]
         total=0
         qty=0
+        name=0
         if h:
             h=Hotel.objects.get(mobile=hotel_mobile)
             dc=Dish.objects.filter(hotel_id=h.id).order_by('dish_category')                    
@@ -816,12 +817,14 @@ def daily_report(request):
                     for r in result:
                         total +=r.total_price
                         qty +=r.qty
+                        name='All Iteams'
             else:
                 result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
                 if result:
                     for r in result:
                         total +=r.total_price
                         qty +=r.qty
+                        name=r.dish.dish_marathi_name
         
         iteam=Paginator(iteam,100)
         iteam=iteam.get_page(page_number)
@@ -832,7 +835,8 @@ def daily_report(request):
             'total':total,
             'qty':qty,
             'iteam':iteam,
-            'h':h
+            'h':h,
+            'name':name
 
         }
         #print(iteam)
