@@ -816,20 +816,12 @@ def daily_report(request):
                     for r in result:
                         total +=r.total_price
                         qty +=r.qty
-                        result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate)
-                        if result:
-                            iteam=[]
-                            iteam.extend(result)
             else:
                 result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
                 if result:
                     for r in result:
                         total +=r.total_price
                         qty +=r.qty
-                        result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
-                        if result:
-                            iteam=[]
-                            iteam.extend(result)
         
         iteam=Paginator(iteam,100)
         iteam=iteam.get_page(page_number)
