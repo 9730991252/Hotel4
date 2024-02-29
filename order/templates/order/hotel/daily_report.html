@@ -40,7 +40,7 @@ To : <input type="date" name="todate"required/>
      <h4>Total Amount Rs {{total}}</h4>
      <h4>Total Qty {{qty}}</h4>
 </div>
-<table class="table" style="display: none;">
+<table class="table" >
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -62,7 +62,7 @@ To : <input type="date" name="todate"required/>
     
     </tbody>
     {% empty %}
-    <div class="text-center" style="display: none;"><h6 class="text-bg-danger">Empty</h6></div>
+    <div class="text-center" ><h6 class="text-bg-danger">Empty</h6></div>
     {% endfor %}
   </table>
 

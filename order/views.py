@@ -103,7 +103,7 @@ def marketing_employee(request):
 def sunil_dashboard(request):
     if request.session.has_key('sunil_mobile'):
         context={}
-        o=Cart.objects.all().order_by('-added_date')
+        o=Cart.objects.all().order_by('-added_date')[:25]
         
         context={
             'o':o
@@ -796,10 +796,10 @@ def daily_report(request):
     if request.session.has_key('hotel_mobile'):
         hotel_mobile = request.session['hotel_mobile']
         h=Hotel.objects.filter(mobile=hotel_mobile).first()
-        page_number=request.GET.get('page')
-        iteam=[]
-        fromdate=[]
-        todate=[]
+        #page_number=request.GET.get('page')
+        iteam=''
+        fromdate=''
+        todate=''
         total=0
         qty=0
         name=0
@@ -818,6 +818,10 @@ def daily_report(request):
                         total +=r.total_price
                         qty +=r.qty
                         name='All Iteams'
+                result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate)[:100]
+                if result:
+                    iteam=result
+
             else:
                 result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)
                 if result:
@@ -825,9 +829,9 @@ def daily_report(request):
                         total +=r.total_price
                         qty +=r.qty
                         name=r.dish.dish_marathi_name
-        
-        iteam=Paginator(iteam,100)
-        iteam=iteam.get_page(page_number)
+                result=OrderDetail.objects.filter(hotel_id=h.id,date__gte=fromdate,date__lte=todate,dish_id=dish_id)[:100]
+                if result:
+                    iteam=result
         context={
             'fromdate':fromdate,
             'todate':todate,
