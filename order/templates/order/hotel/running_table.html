@@ -1,7 +1,7 @@
 {% extends 'order/base.html' %}
 {% block title %}Running table{% endblock title %}
 {% block content %}
-
+{% include 'order/hotel/hotel_menu.html' %}
 
 <input type="hidden" id="hotel_id" value="{{h.id}}"></input>
 <div class="container mt-5 p-5 border rounded">

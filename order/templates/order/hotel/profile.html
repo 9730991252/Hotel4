@@ -1,6 +1,8 @@
 {% extends 'order/base.html' %}
 {% block title %}Profile{% endblock title %}
 {% block content %}
+
+{% include 'order/hotel/hotel_menu.html' %}
 <div class="container border rounded">
 
     <div class=""><h>Welcome - {{h.hotel_name}}</h></div>

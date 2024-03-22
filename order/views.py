@@ -604,7 +604,7 @@ def dish_filter(request):
     if request.method == 'GET':
         filter_data = request.GET['filter']
         hotel_id = request.GET['hotel_id']
-        filter_result = Dish.objects.values().filter(dish_name__icontains=filter_data,hotel_id__icontains=hotel_id,status=1)
+        filter_result = Dish.objects.values().filter(dish_name__icontains=filter_data,hotel_id=hotel_id,status=1)
         dish = list(filter_result)
         #print(dish)
         return JsonResponse({'status': 1, 'dish': dish})
