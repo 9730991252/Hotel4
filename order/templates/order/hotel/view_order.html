@@ -1,7 +1,14 @@
 {% extends 'order/base.html' %}
 {% block title %}View Order{% endblock title %}
 {% block content %}
-
+<style>
+  #tmc{
+    font-weight: 700;
+    color: black;
+    font-size: 22px;
+    background-color: rgba(166, 255, 187, 0.2);
+  }
+</style>
 <div class="fixed-top text-end my-3 bg-white"  ><strong id="all_qty"  class="badge bg-danger">{{ng}}</strong>- एकुण नग </div>
 <div class="my-5"><h>Welcome - {{hotel.hotel_name}}</h></div>
 <input type="hidden" id="hotel_id" value="{{hotel.id}}"></input>

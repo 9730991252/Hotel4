@@ -245,9 +245,11 @@ def hotel_dashboard(request):
     if request.session.has_key('hotel_mobile'):
         hotel_mobile = request.session['hotel_mobile']
         context={}
-        hl = Hotel.objects.filter(mobile=hotel_mobile).first()
-        
-        if hl:
+        hl = Hotel.objects.filter(mobile=hotel_mobile,status=1).first()
+        if hl == None:
+            del request.session['hotel_mobile']
+            return redirect('login')
+        elif hl:
             h = Hotel.objects.get(mobile=hotel_mobile)
             e=Employee.objects.filter(hotel_id=h.id).count()
             d=Dish.objects.filter(hotel_id=h.id).count()
@@ -267,6 +269,7 @@ def hotel_dashboard(request):
                 'o':o,
                 'total':total
             }
+                
         return render(request, 'order/hotel/hotel_dashboard.html',context)
     
     else:
