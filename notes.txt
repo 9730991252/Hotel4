@@ -37,3 +37,9 @@ DATABASES = {
 mysql root Prasanna@7878
 
 ---------------------------
+
+
+git pull
+sudo systemctl daemon-reload
+sudo systemctl restart tejorder.com.gunicorn
+exit
