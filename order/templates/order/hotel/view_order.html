@@ -65,10 +65,7 @@ Total Amount Rs.<input type="readonly" id="tmc" value="{{amount}}" size=5 class=
 
 <div class="container border">
 <br>
-<div class="mb-3">
-<label for="dish" class="form-label">Search Iteams </label>
-<input type="text" placeholder="Search Iteams..." class="form-control" id="dish" oninput="dishgetvalue()" name="dish" required>
-</div>
+
 
 
 
@@ -88,7 +85,25 @@ Total Amount Rs.<input type="readonly" id="tmc" value="{{amount}}" size=5 class=
 </div>
 </div>
 
-
+<style>
+  .footer{
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(189, 186, 186);
+    padding: 5px;
+    input{
+      width: 90%;
+    }
+  }
+</style>
+<br>
+<div class="footer">
+    <input type="text" placeholder="Search Iteams..." class="form-control" id="dish" oninput="dishgetvalue()" name="dish" required>
+</div>
 
 
 <script>

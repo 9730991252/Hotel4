@@ -1,12 +1,17 @@
 {% extends 'order/base.html' %}
 {% block title %}complate order{% endblock title %}
 {% block content %}
+<style>
+  .addvertise{
+    display: none;
+  }
+</style>
 <style media="print">
   @page{
-  size: 3in 5in;
+  size: 3in 10in;
   margin: 0in;
   padding: 0in;
-}
+} 
 
 #p{
   display: none;
@@ -16,8 +21,22 @@
   font-size: 14px;
 
 }
+#order_item{
+  line-height: 6px;
+}
+.addvertise{
+  display: unset;
+  text-align: center;
+  font-weight: 500;
+  font-size: 13px;
+}
+#thank_you{
+  font-weight: 500;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: -0.05in;
+}
 </style>
-
 
 <h id="p" class="p-5">Welcome - {{h.hotel_name}}</h>
 <div id="p" class="container p-5  border rounded">
@@ -57,10 +76,10 @@
       <thead>
         <tr>
           <div class="row">
-          <div class="col-8"><th >Item </th></div>
-          <div class="col-1"><th >Qty</th></div>
-          <div class="col-1"><th >Price</th></div>
-          <div class="col-2"><th >Price</th></div>
+          <div class="col-8"><th id="order_item">Item </th></div>
+          <div class="col-1"><th id="order_item">Qty</th></div>
+          <div class="col-1"><th id="order_item">Price</th></div>
+          <div class="col-2"><th id="order_item">Price</th></div>
         </div>
         </tr>
       
@@ -69,17 +88,18 @@
         {% for o in od %}
         <tr>
           <div class="row">
-          <div class="col-8"><td>{{o.dish_marathi_name}}</td></div>
-          <div class="col-1"><td>{{o.qty}}</td></div>
-          <div class="col-1"><td>{{o.price}}</td></div>
-          <div class="col-2"><td>{{o.total_price}}</td></div>
+          <div class="col-8" ><td id="order_item">{{o.dish_marathi_name}}</td></div>
+          <div class="col-1" ><td id="order_item">{{o.qty}}</td></div>
+          <div class="col-1" ><td id="order_item">{{o.price}}</td></div>
+          <div class="col-2" ><td id="order_item">{{o.total_price}}</td></div>
         </div>
         </tr>
         {% endfor %}
       </tbody>
     </table>
     <h6>Total Amount Rs. {{total}}</h6>
-    <h6>Thank You Visit Again</h6>
+    <h6 id="thank_you">Thank You Visit Again</h6>
+    <div class="addvertise">All type Mobile Software  9730 99 1252</div>
   </div>
 
 
